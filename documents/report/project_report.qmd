@@ -1,0 +1,51 @@
+---
+title: "Linguistic Complexity Across Institutional and Public-Facing Communication in the U.S. House of Representatives"
+author: "Nikolina Djogova"
+format:
+  pdf:
+    toc: true
+    number-sections: true
+editor: visual
+  markdown: 
+    wrap: 72
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+# Introduction
+
+\## Relevance
+
+\## Project Overview
+
+# Research Question and Expectations
+
+\## Research Question
+
+\## Hypotheses \## Expectations
+
+# Literature Review
+
+# Methdology
+
+\## Definitions? \## Data Sources \## Data pipeline \### Data Collection \### Data Storage \### Data Cleaning \## Measures \### Linguistic Complexity Measures and WHY \### Measurement considerations \## Analysis Strategy \### Descriptive Analysis \### Time Trends \### Regression \## One-minute speeches extension
+
+# Results
+
+\## Descriptive \## Model
+
+# Discussion
+
+\## Interpretation of results \## Implications
+
+# Limitations
+
+\## Data Limitations \## Measurement Limitations \## Conceptual Limitations
+
+#Reproducibility
+
+#Conclusion
+
+#References
