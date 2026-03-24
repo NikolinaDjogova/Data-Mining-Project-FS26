@@ -1,4 +1,4 @@
-# Data Mining Project Template
+#Data Mining Project Template
 
 This repository contains the code for a small data mining project developed as part of the course:
 
@@ -6,7 +6,7 @@ This repository contains the code for a small data mining project developed as p
 
 University of Lucerne
 
-Student Name  
+Student Nikolina Djogova  
 Course: Data Mining for the Social Sciences using R
 Term: Spring 2026
 
