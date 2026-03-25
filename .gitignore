@@ -71,6 +71,9 @@ output/checks/*
 !output/logs/.gitkeep
 !output/checks/.gitkeep 
 
+# Ignoring files named .env (API keys, tokens, passwords)
+.env
+
 
 
 

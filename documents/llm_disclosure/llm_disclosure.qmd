@@ -1,5 +1,20 @@
 ---
-title: "llm_disclosure"
-format: html
+title: "Detailed LLM Disclosure"
+author: "Nikolina Djogova"
+format:
+  pdf:
+    toc: true
+    number-sections: true
+editor: visual
+  markdown: 
+    wrap: 72
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
+I am including the exact prompts I used while working on this project.
+
+1.  I'm working on a data mining project and I am attaching my outline. What code can I run to make sure that my API keys will never get pushed to Git? Explain
+2.  
