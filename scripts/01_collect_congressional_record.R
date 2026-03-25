@@ -14,7 +14,7 @@ if (api_key == "") {
 }
 
 # Defining one test package 
-test_package <- "CREC-2026-03-20"
+test_package <- "CREC-2026-02-11"
 
 # Building request URL
 base_url <- "https://api.govinfo.gov/packages"
@@ -72,7 +72,7 @@ head(house_granules)
  ##Granulates aren't always speeches, they include procedural items too.
 
 # Example House granule
-example_url <- paste0(house_granules$granuleLink[2], "?api_key=", api_key)
+example_url <- paste0(house_granules$granuleLink[1], "?api_key=", api_key)
 example_response <- httr::GET(example_url)
 example_json <- jsonlite::fromJSON(
   httr::content(example_response, as = "text", encoding = "UTF-8")
