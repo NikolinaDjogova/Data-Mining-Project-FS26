@@ -33,3 +33,8 @@ httr::status_code(response)
 # Extracting content as text 
 content_text <- httr::content(response, as = "text", encoding = "UTF-8")
 
+# Converting JSON to an R object
+content_json <- jsonlite::fromJSON(content_text)
+
+
+
