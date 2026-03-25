@@ -87,3 +87,13 @@ httr::status_code(text_response)
 granule_text <- httr::content(text_response, as = "text", encoding = "UTF-8")
 granule_text
  ##I found the actual text, but it's not in a very structured format.
+
+# Parsing the returned html
+granule_html <- xml2::read_html(granule_text)
+
+# Extraxting the main preformatted text block
+clean_text <- granule_html |>
+  rvest::html_element("pre") |>
+  rvest::html_text()
+
+clean_text
