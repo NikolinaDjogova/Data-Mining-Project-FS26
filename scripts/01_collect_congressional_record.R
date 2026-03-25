@@ -138,12 +138,29 @@ example_granule_df <- tibble::tibble(
 
 example_granule_df
 
-#Saving this as a test file for now
+# Saving this as a test file for now
 readr::write_csv(
   example_granule_df, 
   here::here("output", "checks", "example_house_granule.csv")
   )
  
+# Function to retrieve text from one granule
+get_granule_text <- function(granule_link, api_key) {
+  granule_url <- paste0(granule_link, "?api_key=", api_key)
+  granule_response <- httr::GET(granule_url)
+  granule_json <- jsonlite::fromJSON(
+    httr::content(granule_response, as = "text", encoding = "UTF-8")
+  )
+  text_url <- paste0(granule_json$download$txtLink, "?api_key=", api_key)
+  text_response <- httr::GET(text_url)
+  granule_text <- httr::content(text_response, as = "text", encoding = "UTF-8")
+  granule_html <- xml2::read_html(granule_text)
+  clean_text <- granule_html |>
+    rvest::html_element("pre") |>
+    rvest::html_text()
+  return(clean_text)
+}
 
-
-
+# Testing the function
+example_text <- get_granule_text(house_granules$granuleLink[9], api_key)
+example_text
