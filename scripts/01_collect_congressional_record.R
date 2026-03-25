@@ -71,3 +71,12 @@ nrow(house_granules)
 head(house_granules)
  ##Granulates aren't always speeches, they include procedural items too.
 
+# Example House granule
+example_url <- paste0(house_granules$granuleLink[2], "?api_key=", api_key)
+example_response <- httr::GET(example_url)
+example_json <- jsonlite::fromJSON(
+  httr::content(example_response, as = "text", encoding = "UTF-8")
+  )
+str(example_json)
+ ##the summary includes metadata, and doesn't give me the actual text yet. 
+
