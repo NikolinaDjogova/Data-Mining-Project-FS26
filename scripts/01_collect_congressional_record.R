@@ -100,3 +100,15 @@ clean_text
 
 # Inspecting the titles 
 house_granules$title
+## The titles are not very informative.
+
+#Inspecting one substantive House granule 
+example_url <- paste0(house_granules$granuleLink[9], "?api_key=", api_key)
+example_response <- httr::GET(example_url)
+example_json <- jsonlite::fromJSON(
+  httr::content(example_response, as = "text", encoding = "UTF-8")
+)
+str(example_json)
+ ##Finally, I see real progress, this granule is a speech, includes members, speaker, discussion window, title..
+
+.
