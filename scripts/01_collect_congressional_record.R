@@ -97,3 +97,6 @@ clean_text <- granule_html |>
   rvest::html_text()
 
 clean_text
+
+# Inspecting the titles 
+house_granules$title
