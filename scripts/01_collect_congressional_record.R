@@ -138,6 +138,12 @@ example_granule_df <- tibble::tibble(
 
 example_granule_df
 
+#Saving this as a test file for now
+readr::write_csv(
+  example_granule_df, 
+  here::here("output", "checks", "example_house_granule.csv")
+  )
+ 
 
 
 
