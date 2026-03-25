@@ -47,3 +47,18 @@ granules_response <- httr::GET(granules_url)
 
 # Checking the status
 httr::status_code(granules_response)
+
+# Parsing JSON
+granules_text <- httr::content(granules_response, as = "text", encoding = "UTF-8")
+granules_json <- jsonlite::fromJSON(granules_text)
+
+# Inspecting the structure
+str(granules_json)
+
+# Checking the first few granules 
+head(granules_json$granules)
+
+# Checking their classes 
+table(granules_json$granules$granuleClass)
+ ##I'll need to filter for only House of Reps relevant material.
+
