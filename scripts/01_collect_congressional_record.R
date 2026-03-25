@@ -111,4 +111,18 @@ example_json <- jsonlite::fromJSON(
 str(example_json)
  ##Finally, I see real progress, this granule is a speech, includes members, speaker, discussion window, title..
 
-.
+# Extracting the text link
+text_url <- paste0(example_json$download$txtLink, "?api_key=", api_key)
+text_response <- httr::GET(text_url)
+httr::status_code(text_response)
+
+# Parsing the returned text 
+granule_text <- httr::content(text_response, as = "text", encoding = "UTF-8")
+granule_html <- xml2::read_html(granule_text)
+clean_text <- granule_html |>
+  rvest::html_element("pre") |>
+  rvest::html_text()
+clean_text
+ ##The full pipeline works. A useful House granule does have substantial legislative debate text.
+
+
