@@ -18,3 +18,7 @@ I am including the exact prompts I used while working on this project.
 
 1.  I'm working on a data mining project and I am attaching my outline. What code can I run to make sure that my API keys will never get pushed to Git? Explain
 2.  This is my 00_setup script. Evaluate it and tell me if i there's anything i need to get rid of or anything i can improve.
+3.  After editing my R scripts, I need to close R in order to be able to then reopen it and push the code. If I simply want to push after writing the code, I can't see it.
+4.  What's the best way to store an api key and why, explain.
+5.  I'm trying to build a request url but I don't want the api key to show when I run it, what's the best way to hide it?
+6.  

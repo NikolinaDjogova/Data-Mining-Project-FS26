@@ -12,3 +12,20 @@ if (api_key == "") {
 } else {
   message("It works! API key successfully retrieved.")
 }
+
+# Defining one test package 
+test_package <- "CREC-2026-03-20"
+
+# Building request URL
+base_url <- "https://api.govinfo.gov/packages"
+summary_url <- paste0(base_url, "/", test_package, "/summary?api_key=", api_key)
+
+# Safe version for checking the structure
+safe_summary_url <- paste0(base_url, "/", test_package, "/summary?api_key=hidden")
+safe_summary_url
+
+# Sending a GET request 
+response <- httr::GET(summary_url)
+
+# Checking the status 
+httr::status_code(response)
