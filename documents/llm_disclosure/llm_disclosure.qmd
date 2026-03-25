@@ -21,4 +21,5 @@ I am including the exact prompts I used while working on this project.
 3.  After editing my R scripts, I need to close R in order to be able to then reopen it and push the code. If I simply want to push after writing the code, I can't see it.
 4.  What's the best way to store an api key and why, explain.
 5.  I'm trying to build a request url but I don't want the api key to show when I run it, what's the best way to hide it?
-6.  
+6.  This is my second script. Evaluate it, is there anything I can improve? Anything I should get rid of or any chance to simplify something?
+7.  
