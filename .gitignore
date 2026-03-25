@@ -51,3 +51,26 @@ rsconnect/
 # Adding .DS store 
 .DS_Store
 
+# Data 
+data/raw/*
+data/interim/*
+data/processed/*
+
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep 
+
+# Outputs 
+output/figures/*
+output/tables/*
+output/logs/*
+output/checks/*
+
+!output/figures/.gitkeep
+!output/tables/.gitkeep
+!output/logs/.gitkeep
+!output/checks/.gitkeep 
+
+
+
+
