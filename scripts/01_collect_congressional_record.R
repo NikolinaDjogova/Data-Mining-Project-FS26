@@ -29,3 +29,7 @@ response <- httr::GET(summary_url)
 
 # Checking the status 
 httr::status_code(response)
+
+# Extracting content as text 
+content_text <- httr::content(response, as = "text", encoding = "UTF-8")
+
