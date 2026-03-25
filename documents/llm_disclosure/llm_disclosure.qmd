@@ -17,4 +17,4 @@ execute:
 I am including the exact prompts I used while working on this project.
 
 1.  I'm working on a data mining project and I am attaching my outline. What code can I run to make sure that my API keys will never get pushed to Git? Explain
-2.  
+2.  This is my 00_setup script. Evaluate it and tell me if i there's anything i need to get rid of or anything i can improve.

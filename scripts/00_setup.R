@@ -1,3 +1,6 @@
+# Removing everything that's currently in my environment
+rm(list = ls())
+
 # Loading packages I might need 
 library(httr)
 library(jsonlite)
@@ -5,16 +8,16 @@ library(tidyverse)
 library(stringr)
 library(here)
 
-# making sure that text is not automatically turned into factors
+# Making sure that text is not automatically turned into factors
 options(stringsAsFactors = FALSE)
-# reducting scientific notation in printed numbers
+# Reducting scientific notation in printed numbers
 options(scipen = 999)
 
 # Project paths 
 ## Creating objects storing the path to folders
-raw_data_path <- here("data", "raw")
-interim_data_path <- here("data", "interim")
-processed_data_path <- here("data", "processed")
+data_raw_path <- here("data", "raw")
+data_interim_path <- here("data", "interim")
+data_processed_path <- here("data", "processed")
 
 raw_congressional_record_path <- here("data", "raw", "congressional_record")
 raw_press_releases_path <- here("data", "raw", "press_releases")
