@@ -36,5 +36,14 @@ content_text <- httr::content(response, as = "text", encoding = "UTF-8")
 # Converting JSON to an R object
 content_json <- jsonlite::fromJSON(content_text)
 
+# Inspecting the structure
+str(content_json)
 
+# Getting the granules link 
+granules_url <- paste0(content_json$granulesLink, "&api_key=", api_key)
 
+# Sending a GET request to the granules endpoint
+granules_response <- httr::GET(granules_url)
+
+# Checking the status
+httr::status_code(granules_response)
