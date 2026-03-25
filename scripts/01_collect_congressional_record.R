@@ -80,3 +80,10 @@ example_json <- jsonlite::fromJSON(
 str(example_json)
  ##the summary includes metadata, and doesn't give me the actual text yet. 
 
+# Extracting the text link
+text_url <- paste0(example_json$download$txtLink, "?api_key=", api_key)
+text_response <- httr::GET(text_url)
+httr::status_code(text_response)
+granule_text <- httr::content(text_response, as = "text", encoding = "UTF-8")
+granule_text
+ ##I found the actual text, but it's not in a very structured format.
