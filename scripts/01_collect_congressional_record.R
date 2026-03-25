@@ -174,3 +174,30 @@ test_text_3 <- get_granule_text(house_granules$granuleLink[12], api_key)
 substr(test_text_1, 1, 500)
 substr(test_text_2, 1, 500)
 substr(test_text_3, 1, 500)
+
+# Creating small dataset from a few granules 
+example_dataset <- tibble::tibble(
+  date = c(
+    house_granules$dateIssued[8],
+    house_granules$dateIssued[9],
+    house_granules$dateIssued[12]
+  ),
+  granule_id = c(
+    house_granules$granuleId[8],
+    house_granules$granuleId[9],
+    house_granules$granuleId[12]
+  ),
+  title = c(
+    house_granules$title[8],
+    house_granules$title[9],
+    house_granules$title[12]
+  ),
+  type = c(
+    house_granules$granuleClass[8],
+    house_granules$granuleClass[9],
+    house_granules$granuleClass[12]
+  ),
+  text = c(test_text_1, test_text_2, test_text_3)
+)
+
+example_dataset
