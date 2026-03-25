@@ -125,4 +125,19 @@ clean_text <- granule_html |>
 clean_text
  ##The full pipeline works. A useful House granule does have substantial legislative debate text.
 
+# Creating a small df from one speech for testing
+example_granule_df <- tibble::tibble(
+  date = example_json$dateIssued,
+  package_id = example_json$packageId,
+  granule_id = example_json$granuleId,
+  title = example_json$title,
+  type = example_json$granuleClass,
+  subtype = example_json$subGranuleClass,
+  text = stringr::str_squish(clean_text)
+)
+
+example_granule_df
+
+
+
 
