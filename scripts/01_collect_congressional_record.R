@@ -164,3 +164,13 @@ get_granule_text <- function(granule_link, api_key) {
 # Testing the function
 example_text <- get_granule_text(house_granules$granuleLink[9], api_key)
 example_text
+
+# Testing the function on a few granules to make sure it works 
+test_text_1 <- get_granule_text(house_granules$granuleLink[8], api_key)
+test_text_2 <- get_granule_text(house_granules$granuleLink[9], api_key)
+test_text_3 <- get_granule_text(house_granules$granuleLink[12], api_key)
+
+# Checking the first part of each text
+substr(test_text_1, 1, 500)
+substr(test_text_2, 1, 500)
+substr(test_text_3, 1, 500)
