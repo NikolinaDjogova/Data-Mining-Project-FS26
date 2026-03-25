@@ -62,3 +62,12 @@ head(granules_json$granules)
 table(granules_json$granules$granuleClass)
  ##I'll need to filter for only House of Reps relevant material.
 
+# Filtering only the House of Representatives material 
+house_granules <- granules_json$granules |>
+  dplyr::filter(granuleClass == "HOUSE")
+
+# Inspecting 
+nrow(house_granules)
+head(house_granules)
+ ##Granulates aren't always speeches, they include procedural items too.
+
