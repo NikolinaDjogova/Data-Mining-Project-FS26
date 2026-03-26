@@ -17,10 +17,10 @@ test_package <- "CREC-2026-02-11"
 get_granule_text <- function(granule_link, api_key) {
   granule_url <- paste0(granule_link, "?api_key=", api_key)
   granule_response <- httr::GET(granule_url)
-  granulate_json <- jsonlite::fromJSON(
+  granule_json <- jsonlite::fromJSON(
     httr::content(granule_response, as = "text", encoding = "UTF-8")
     )
-  text_url <- paste0(granulw_json$download$txtlink, "?api_key=", api_key)
+  text_url <- paste0(granule_json$download$txtLink, "?api_key=", api_key)
   text_response <- httr::GET(text_url)
   raw_text <-   httr::content(text_response, as = "text", encoding = "UTF-8")
   clean_text <- raw_text |>
@@ -64,3 +64,5 @@ example_dataset <- tibble::tibble(
     ~ get_granule_text(.x, api_key)
   )
 )
+
+example_dataset
