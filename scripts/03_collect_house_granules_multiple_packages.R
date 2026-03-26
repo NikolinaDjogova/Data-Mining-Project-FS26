@@ -81,4 +81,7 @@ filtered_house_granules <- all_house_granules |>
       "DISCHARGE PETITIONS-- ADDITIONS AND WITHDRAWALS"
     )
   )
-  
+
+# Small testing sample
+test_granules <- filtered_house_granules |>
+  dplyr::slice(1:12)
