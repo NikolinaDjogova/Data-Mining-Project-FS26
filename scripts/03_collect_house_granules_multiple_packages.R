@@ -61,5 +61,24 @@ get_house_granules <- function(package_id, api_key) {
 all_house_granules <- purrr::map_dfr(test_packages, ~ get_house_granules(.x, api_key))
 all_house_granules <- dplyr::bind_rows(all_house_granules)
 
-
+# Keeping a few relevant columns 
+filtered_house_granules <- all_house_granules |>
+  dplyr::filter(
+    !title %in% c(
+      "House of Representatives",
+      "PRAYER",
+      "THE JOURNAL",
+      "PLEDGE OF ALLEGIANCE",
+      "ADJOURNMENT",
+      "RECESS",
+      "AFTER RECESS",
+      "MESSAGES FROM THE PRESIDENT",
+      "EXECUTIVE COMMUNICATIONS, ETC.",
+      "REPORTS OF COMMITTEES ON PUBLIC BILLS AND RESOLUTIONS",
+      "PUBLIC BILLS AND RESOLUTIONS",
+      "ADDITIONAL SPONSORS",
+      "DISCHARGE PETITIONS",
+      "DISCHARGE PETITIONS-- ADDITIONS AND WITHDRAWALS"
+    )
+  )
   
