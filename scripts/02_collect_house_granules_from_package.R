@@ -20,7 +20,10 @@ get_granule_text <- function(granule_link, api_key) {
   granulate_json <- jsonlite::fromJSON(
     httr::content(granule_response, as = "text", encoding = "UTF-8")
     )
-  clean_text <- granulate_text |>
+  text_url <- paste0(granulw_json$download$txtlink, "?api_key=", api_key)
+  text_response <- httr::GET(text_url)
+  raw_text <-   httr::content(text_response, as = "text", encoding = "UTF-8")
+  clean_text <- raw_text |>
     xml2::read_html() |>
     rvest::html_element("pre") |>
     rvest::html_text()
@@ -48,4 +51,16 @@ granules_json <- jsonlite::fromJSON(
 house_granules <- granules_json$granules |>
   dplyr::filter(granuleClass == "HOUSE")
 
+example_rows <- c(8, 9, 12)
 
+# Building a small test dataset 
+example_dataset <- tibble::tibble(
+  date = house_granules$granuleDate[example_rows],
+  granule_id = house_granules$granuleId[example_rows],
+  title = house_granules$title[example_rows],
+  type = house_granules$granuleClass[example_rows],
+  text = purrr::map_chr(
+    house_granules$granuleLink[example_rows],
+    ~ get_granule_text(.x, api_key)
+  )
+)
