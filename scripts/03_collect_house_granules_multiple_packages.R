@@ -85,3 +85,15 @@ filtered_house_granules <- all_house_granules |>
 # Small testing sample
 test_granules <- filtered_house_granules |>
   dplyr::slice(1:12)
+
+# Building a small test dataset
+house_dataset <- tibble::tibble(
+  date = test_granules$dateIssued,
+  granule_id = test_granules$granuleId,
+  title = test_granules$title,
+  type = test_granules$granuleClass,
+  text = purrr::map_chr(
+    test_granules$granuleLink,
+    ~ get_granule_text(.x, api_key)
+  )
+)
