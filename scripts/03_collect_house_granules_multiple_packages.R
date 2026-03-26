@@ -97,3 +97,11 @@ house_dataset <- tibble::tibble(
     ~ get_granule_text(.x, api_key)
   )
 )
+
+house_dataset
+
+# Saving the dataset 
+readr::write_csv(
+  house_dataset,
+  here::here("output", "checks", "house_granules_multiple_packages.csv")
+)
