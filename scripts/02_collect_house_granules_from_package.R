@@ -66,3 +66,10 @@ example_dataset <- tibble::tibble(
 )
 
 example_dataset
+
+# Saving the test dataset 
+readr::write_csv(
+  example_dataset,
+  here::here("output", "checks", "example_house_granules.csv")
+)
+
