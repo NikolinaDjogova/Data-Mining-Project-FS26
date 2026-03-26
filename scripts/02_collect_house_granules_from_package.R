@@ -43,3 +43,9 @@ granules_response <- httr::GET(granules_url)
 granules_json <- jsonlite::fromJSON(
   httr::content(granules_response, as = "text", encoding = "UTF-8")
 )
+
+# Keeping only House granules 
+house_granules <- granules_json$granules |>
+  dplyr::filter(granuleClass == "HOUSE")
+
+
