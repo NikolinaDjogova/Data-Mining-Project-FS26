@@ -55,7 +55,7 @@ example_rows <- c(8, 9, 12)
 
 # Building a small test dataset 
 example_dataset <- tibble::tibble(
-  date = house_granules$granuleDate[example_rows],
+  date = house_granules$dateIssued[example_rows],
   granule_id = house_granules$granuleId[example_rows],
   title = house_granules$title[example_rows],
   type = house_granules$granuleClass[example_rows],
