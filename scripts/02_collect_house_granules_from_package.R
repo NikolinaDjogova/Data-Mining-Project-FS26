@@ -27,3 +27,12 @@ get_granule_text <- function(granule_link, api_key) {
   return(clean_text)
 }
 
+# Requesting package summary 
+base_url <- "https://api.govinfo.gov/packages"
+summary_url <- paste0(base_url, "/", test_package, "/summary?api_key=", api_key)
+
+response <- httr::GET(summary_url)
+
+content_json <- jsonlite::fromJSON(
+  httr::content(response, as = "text", encoding = "UTF-8")
+)
