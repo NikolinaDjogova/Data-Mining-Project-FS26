@@ -36,3 +36,10 @@ response <- httr::GET(summary_url)
 content_json <- jsonlite::fromJSON(
   httr::content(response, as = "text", encoding = "UTF-8")
 )
+
+# Requesting the granules list 
+granules_url <- paste0(content_json$granulesLink, "&api_key=", api_key)
+granules_response <- httr::GET(granules_url)
+granules_json <- jsonlite::fromJSON(
+  httr::content(granules_response, as = "text", encoding = "UTF-8")
+)
