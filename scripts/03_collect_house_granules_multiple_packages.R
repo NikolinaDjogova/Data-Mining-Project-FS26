@@ -39,3 +39,21 @@ get_granule_text <- function(granule_link, api_key) {
   return(clean_text)
 }
 
+# Function to get House granules from one package
+get_house_granules <- function(package_id, api_key) {
+  base_url <- "https://api.govinfo.gov/packages"
+  summary_url <- paste0(base_url, "/", package_id, "/summary?api_key=", api_key)
+  response <- httr::GET(summary_url)
+  content_json <- jsonlite::fromJSON(
+    httr::content(response, as = "text", encoding = "UTF-8")
+  )
+  granules_url <- paste0(content_json$granulesLink, "&api_key=", api_key)
+  granules_response <- httr::GET(granules_url)
+  granules_json <- jsonlite::fromJSON(
+    httr::content(granules_response, as = "text", encoding = "UTF-8")
+  )
+  house_granules <- granules_json$granules |>
+    dplyr::filter(granuleClass == "HOUSE") 
+  return(house_granules)
+  }
+  
