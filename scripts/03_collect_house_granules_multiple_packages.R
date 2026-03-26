@@ -55,5 +55,11 @@ get_house_granules <- function(package_id, api_key) {
   house_granules <- granules_json$granules |>
     dplyr::filter(granuleClass == "HOUSE") 
   return(house_granules)
-  }
+}
+
+# Collecting House granules from all test packages
+all_house_granules <- purrr::map_dfr(test_packages, ~ get_house_granules(.x, api_key))
+all_house_granules <- dplyr::bind_rows(all_house_granules)
+
+
   
