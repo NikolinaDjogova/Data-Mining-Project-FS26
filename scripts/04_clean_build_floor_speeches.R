@@ -71,3 +71,26 @@ readr::write_csv(
   file.path(interim_floor_speeches_path, "floor_speeches_clean.csv")
 )
 
+# Creating a small check table 
+ ##I want to get a quick summary of how many rows were collected and kept at each stage
+checks <- tibble::tibble(
+ metric = c(
+   "packages",
+   "house_granules",
+   "after_title_filter",
+   "final_floor_speeches"
+ ),
+ value = c(
+   length(package_ids),
+   nrow(all_house_granules),
+   nrow(kept_granules),
+   nrow(floor_speeches)
+  )
+ )
+
+# Saving the table 
+readr::write_csv(
+  checks, 
+  file.path(output_checks_path, "04_floor_speeches_checks.csv")
+)
+
