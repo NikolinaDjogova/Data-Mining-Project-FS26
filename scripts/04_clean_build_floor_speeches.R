@@ -64,3 +64,10 @@ floor_speeches <- kept_granules |>
       dplyr::distinct(granule_id, .keep_all = TRUE) |>
       dplyr::arrange(date, granule_id)
   )
+
+# Saving the cleaned corpus
+readr::write_csv(
+  floor_speeches,
+  file.path(interim_floor_speeches_path, "floor_speeches_clean.csv")
+)
+
