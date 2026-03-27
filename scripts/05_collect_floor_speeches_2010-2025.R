@@ -64,3 +64,10 @@ readr::write_csv(
   all_house_granules,
   file.path(raw_congressional_record_path, "house_granules_2010_2025_raw.csv")
 )
+
+# Filtering out procedural items 
+kept_granules <- all_house_granules |>
+  dplyr::filter(
+    !title %in% excluded_titles
+  )
+
