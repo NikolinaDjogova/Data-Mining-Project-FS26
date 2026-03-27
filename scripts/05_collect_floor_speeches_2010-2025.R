@@ -27,7 +27,7 @@ get_house_granules_wrapper <- function(package_id, api_key) {
     get_house_granules(package_id, api_key),
     error = function(e) {
       message(paste("Error in package:", package_id, " - ", e$message))
-      return("tibble::tibble()")
+      return(tibble::tibble())
     }
   )
 }
@@ -42,3 +42,25 @@ get_granule_text_wrapper <- function(granule_link, api_key) {
     }
   )
 }
+
+# Collecting House granules data from all package ids
+  ##this will probably take long, so I want to know when it starts and ends 
+
+message("Starting package collection")
+
+all_house_granules <- purrr::map_dfr(
+  package_ids,
+  function(pkg){
+    message("Processing package:", pkg)
+    Sys.sleep(0.2)
+    get_house_granules_wrapper(pkg, api_key)
+  }
+)
+
+message("Finished package collection")
+
+# Saving the raw House granule metadata 
+readr::write_csv(
+  all_house_granules,
+  file.path(raw_congressional_record_path, "house_granules_2010_2025_raw.csv")
+)
