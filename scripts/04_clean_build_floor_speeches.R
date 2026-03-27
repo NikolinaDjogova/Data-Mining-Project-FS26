@@ -3,6 +3,7 @@ rm(list = ls())
 
 # Loading project setup
 source(here::here("scripts", "00_setup.R"))
+source(here::here("scripts", "functions_congressional_record.R"))
 
 # Getting the API key
 api_key <- Sys.getenv("GOVINFO_API_KEY")
