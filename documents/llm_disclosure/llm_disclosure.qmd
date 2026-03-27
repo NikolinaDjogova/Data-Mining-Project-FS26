@@ -23,7 +23,6 @@ I am including the exact prompts I used while working on this project.
 5.  I'm trying to build a request url but I don't want the api key to show when I run it, what's the best way to hide it?
 6.  This is my second script. Evaluate it, is there anything I can improve? Anything I should get rid of or any chance to simplify something?
 7.  I'm trying to get package metadata and then the granules inside that package. Am I overcomplicating this? Can i write this code in a more simple way?
-8.  My function returns error after error. Error during wrapup: URL using bad/illegal format or missing URL:
-    URL rejected: No host part in the URL
-    Error: no more error handlers available (recursive errors?); invoking 'abort' restart. Help me fix it.
-9.  
+8.  My function returns error after error. Error during wrapup: URL using bad/illegal format or missing URL: URL rejected: No host part in the URL Error: no more error handlers available (recursive errors?); invoking 'abort' restart. Help me fix it.
+9.  Inside the clean dataset I need to remove short entries, let's say less than 50 words. Help me with the code. This is what I have at the moment: dplyr::filter(word_count \< 50).
+10. 

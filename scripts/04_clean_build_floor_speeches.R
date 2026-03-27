@@ -56,4 +56,8 @@ floor_speeches <- kept_granules |>
     granule_id = granuleId,
     title,
     type = granuleClass,
-    text = purr::map_chr(granuleLink, ~ get_granule_text(.x, api_key))
+    text = purr::map_chr(granuleLink, ~ get_granule_text(.x, api_key)) |>
+      dplyr::mutate(
+        word_count = stringr::str_count(text, "\\S+")
+      ) |>
+      dplyr::filter(word_count >= 50) |>
