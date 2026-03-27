@@ -61,3 +61,5 @@ floor_speeches <- kept_granules |>
         word_count = stringr::str_count(text, "\\S+")
       ) |>
       dplyr::filter(word_count >= 50) |>
+      dplyr::arrange(date, granule_id)
+  )
