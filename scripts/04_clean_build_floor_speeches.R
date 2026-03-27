@@ -9,3 +9,11 @@ api_key <- Sys.getenv("GOVINFO_API_KEY")
 if (api_key == "") {
   stop("The key is missing from the environment")
 }
+
+# small set of packages 
+package_ids <- c(
+  "CREC-2026-02-11", 
+  "CREC-2026-02-12",
+  "CREC-2026-02-13"
+)
+
