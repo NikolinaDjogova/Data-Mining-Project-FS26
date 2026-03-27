@@ -15,7 +15,7 @@ get_house_granules <- function(package_id, api_key) {
   granules_json$granules |>
     dplyr::filter(granuleClass == "HOUSE") |>
     dplyr::mutate(package_id = package_id)
-  
+}
   
   
 get_granule_text <- function(granule_link, api_key) {
