@@ -28,3 +28,5 @@ I am including the exact prompts I used while working on this project.
 10. This is how my code is looking rn for creating a clean dataset. Is there something missing? Something I should add? remove?
 11. I'm trying to create a wrapper and I can't get it right. Help me write wrappers for packages and granules. Here's what I have atm:
 12. I'm about to run this code to collect the full data. Check it. Do you think it will work? Am i missing something?
+13. After fI finally got the data, I fixed an earlier bug, ran the script and it is currently reloading everything again which is soo time consuming. What can I add to my code so that doesn't happen again? Explain.
+14. 
