@@ -38,8 +38,13 @@ excluded_titles <- c(
   ##These are House granules that are not likely to contain substantive speeches for my project 
 
 # Collecting all House granules from selected packages
+  ## map_dfr runs the hekper function for each package ID and combines the results into a single data frame
 all_house_granules <- purrr::map_dfr(
   package_ids, 
   ~ get_house_granules(.x, api_key)
 )
+
+# Filtering out procedural granules
+kept_granules <- all_house_granules |>
+  dplyr::filter(!title %in% excluded_titles)
 
