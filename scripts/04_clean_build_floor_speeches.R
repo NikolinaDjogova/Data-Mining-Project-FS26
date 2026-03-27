@@ -48,3 +48,12 @@ all_house_granules <- purrr::map_dfr(
 kept_granules <- all_house_granules |>
   dplyr::filter(!title %in% excluded_titles)
 
+# Building clean floor speech dataset 
+floor_speeches <- kept_granules |>
+  dplyr::transmute(
+    date = as.Date(dateIssued),
+    package_id,
+    granule_id = granuleId,
+    title,
+    type = granuleClass,
+    text = purr::map_chr(granuleLink, ~ get_granule_text(.x, api_key))
