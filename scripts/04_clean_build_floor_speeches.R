@@ -56,14 +56,14 @@ floor_speeches <- kept_granules |>
     granule_id = granuleId,
     title,
     type = granuleClass,
-    text = purrr::map_chr(granuleLink, ~ get_granule_text(.x, api_key)) |>
+    text = purrr::map_chr(granuleLink, ~ get_granule_text(.x, api_key))
+    ) |>
       dplyr::mutate(
         word_count = stringr::str_count(text, "\\S+")
       ) |>
       dplyr::filter(word_count >= 50) |>
       dplyr::distinct(granule_id, .keep_all = TRUE) |>
       dplyr::arrange(date, granule_id)
-  )
 
 # Saving the cleaned corpus
 readr::write_csv(
@@ -94,3 +94,4 @@ readr::write_csv(
   file.path(output_checks_path, "04_floor_speeches_checks.csv")
 )
 
+nrow(kept_granules)
