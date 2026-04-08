@@ -29,4 +29,9 @@ I am including the exact prompts I used while working on this project.
 11. I'm trying to create a wrapper and I can't get it right. Help me write wrappers for packages and granules. Here's what I have atm:
 12. I'm about to run this code to collect the full data. Check it. Do you think it will work? Am i missing something?
 13. After fI finally got the data, I fixed an earlier bug, ran the script and it is currently reloading everything again which is soo time consuming. What can I add to my code so that doesn't happen again? Explain.
-14. 
+14. I ran and collected a large part of the data but it just stopped. I need to continue but i don't want to re-run the whole thing just what's left. How do i do that?
+15. My chunk files are saving, but I don't think they're in order. How can i cheeck is some are missing?
+16. I want to save each chunk immediately so I don’t lose everything if the script stops midway.
+17. I'm getting way too many NAs when collecting granules. What should i do to make sure they don't break the script??
+18. My script is still running way tooo long, can i add progress messages or checkpoints so I can see where it is and make sure it's still working??
+19. I want to make sure my script is reproducible before i push it to github. What should I remove, what should I keep, and what would make it look cleaner?
