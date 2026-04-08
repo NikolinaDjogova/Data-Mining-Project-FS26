@@ -11,6 +11,10 @@ if (api_key == "") {
   stop("The key is missing from the environment")
 }
 
+# Ensuring output folders exist
+dir.create(raw_congressional_record_path, recursive = TRUE, showWarnings = FALSE)
+dir.create(interim_floor_speeches_path, recursive = TRUE, showWarnings = FALSE)
+
 # Defining the full date range 
 all_dates <- seq.Date(
   from = as.Date ("2010-01-01"),
@@ -70,4 +74,59 @@ kept_granules <- all_house_granules |>
   dplyr::filter(
     !title %in% excluded_titles
   )
+
+# Splitting the data into chunks of 100 granules each
+chunk_size <- 100
+
+granule_chunks <- split(
+  kept_granules,
+  ceiling(seq_len(nrow(kept_granules)) / chunk_size)
+)
+
+# Creating an empty list to store chunk results
+floor_speeches_chunks <- vector("list", length(granule_chunks))
+
+message("Starting chunked text collection")
+
+for (i in seq_along(granule_chunks)) {
+  
+  message("Processing chunk ", i, " of ", length(granule_chunks))
+  
+  chunk_data <- granule_chunks[[i]]
+  
+  floor_speeches_chunks[[i]] <- chunk_data |>
+    dplyr::transmute(
+      date = as.Date(dateIssued),
+      package_id,
+      granule_id = granuleId,
+      title,
+      type = granuleClass,
+      text = purrr::map_chr(
+        seq_along(granuleLink),
+        function(j) {
+          message("  Granule ", j, " of ", nrow(chunk_data), " in chunk ", i)
+          Sys.sleep(0.2)
+          get_granule_text_wrapper(granuleLink[j], api_key)
+        }
+      )
+    ) |>
+    dplyr::mutate(
+      word_count = stringr::str_count(text, "\\S+")
+    ) |>
+    dplyr::filter(!is.na(text), word_count >= 50) |>
+    dplyr::distinct(granule_id, .keep_all = TRUE) |>
+    dplyr::arrange(date, granule_id)
+  
+  # Saving each chunk immediately
+  readr::write_csv(
+    floor_speeches_chunks[[i]],
+    file.path(
+      interim_floor_speeches_path,
+      paste0("floor_speeches_chunk_", i, ".csv")
+    )
+  )
+}
+
+message("Finished chunked text collection")
+
 
