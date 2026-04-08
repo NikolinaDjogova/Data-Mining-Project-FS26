@@ -49,3 +49,23 @@ excluded_titles <- c(
   "DISCHARGE PETITIONS",
   "DISCHARGE PETITIONS-- ADDITIONS AND WITHDRAWALS"
 )
+
+get_house_granules_wrapper <- function(package_id, api_key) {
+  tryCatch(
+    get_house_granules(package_id, api_key),
+    error = function(e) {
+      message(paste("Error in package:", package_id, "-", e$message))
+      return(tibble::tibble())
+    }
+  )
+}
+
+get_granule_text_wrapper <- function(granule_link, api_key) {
+  tryCatch(
+    get_granule_text(granule_link, api_key),
+    error = function(e) {
+      message(paste("Error in granule link:", granule_link, "-", e$message))
+      return(NA_character_)
+    }
+  )
+}
