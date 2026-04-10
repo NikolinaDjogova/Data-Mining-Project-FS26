@@ -25,3 +25,11 @@ floor_speeches <- purrr::map_dfr(
   readr::read_csv,
   show_col_types = FALSE
 )
+
+# Cleaning the combined dataset
+floor_speeches <- floor_speeches |>
+  dplyr::mutate(
+    date = as.Date(date)
+  ) |>
+  dplyr::distinct(granule_id, .keep_all = TRUE) |>
+  dplyr::arrange(date, granule_id)
