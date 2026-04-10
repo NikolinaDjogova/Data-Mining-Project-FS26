@@ -9,9 +9,7 @@ source(here::here("scripts", "00_setup.R"))
 api_key <- Sys.getenv("GOVINFO_API_KEY")
 if (api_key == "") {
   stop("API key is missing from the R environment")
-} else {
-  message("It works! API key successfully retrieved.")
-}
+} 
 
 # Defining one test package 
 test_package <- "CREC-2026-02-11"
@@ -19,10 +17,6 @@ test_package <- "CREC-2026-02-11"
 # Building request URL
 base_url <- "https://api.govinfo.gov/packages"
 summary_url <- paste0(base_url, "/", test_package, "/summary?api_key=", api_key)
-
-# Safe version for checking the structure
-safe_summary_url <- paste0(base_url, "/", test_package, "/summary?api_key=hidden")
-safe_summary_url
 
 # Sending a GET request 
 response <- httr::GET(summary_url)
