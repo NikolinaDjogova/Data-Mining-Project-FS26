@@ -19,3 +19,9 @@ chunk_numbers <- stringr::str_extract(basename(chunk_files), "[0-9]+") |>
 
 chunk_files <- chunk_files[order(chunk_numbers)]
 
+# Combining all chunk files
+floor_speeches <- purrr::map_dfr(
+  chunk_files,
+  readr::read_csv,
+  show_col_types = FALSE
+)
