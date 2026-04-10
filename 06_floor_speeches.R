@@ -33,3 +33,10 @@ floor_speeches <- floor_speeches |>
   ) |>
   dplyr::distinct(granule_id, .keep_all = TRUE) |>
   dplyr::arrange(date, granule_id)
+
+# Saving the final combined dataset
+readr::write_csv(
+  floor_speeches,
+  file.path(interim_floor_speeches_path, "floor_speeches_2010_2025_combined.csv")
+)
+
