@@ -17,7 +17,7 @@ dir.create(interim_floor_speeches_path, recursive = TRUE, showWarnings = FALSE)
 
 # Defining the full date range 
 all_dates <- seq.Date(
-  from = as.Date ("2010-01-01"),
+  from = as.Date ("2020-01-01"),
   to = as.Date("2025-12-31"),
   by = "day"
 )
@@ -25,52 +25,28 @@ all_dates <- seq.Date(
 # Building package IDs for the full date range
 package_ids <- paste0("CREC-", all_dates)
 
-# Wrapper for packages 
-get_house_granules_wrapper <- function(package_id, api_key) {
-  tryCatch(
-    get_house_granules(package_id, api_key),
-    error = function(e) {
-      message(paste("Error in package:", package_id, " - ", e$message))
-      return(tibble::tibble())
-    }
-  )
-}
+message ("Starting package collection for 2020-2025")
 
-# Wrapper for granules 
-get_granule_text_wrapper <- function(granule_link, api_key) {
-  tryCatch(
-    get_granule_text(granule_link, api_key),
-    error = function(e) {
-      message(paste("Error in granule link:", granule_link, " - ", e$message))
-      return(NA_character_)
-    }
-  )
-}
-
-# Collecting House granules data from all package ids
-  ##this will probably take long, so I want to know when it starts and ends 
-
-message("Starting package collection")
-
-all_house_granules <- purrr::map_dfr(
+# Collecting House granules data 
+all_house_granules_recent <- purrr::map_dfr(
   package_ids,
-  function(pkg){
-    message("Processing package:", pkg)
+  function(pkg) {
+    message("Processing package: ", pkg)
     Sys.sleep(0.2)
     get_house_granules_wrapper(pkg, api_key)
   }
 )
 
-message("Finished package collection")
+message("Finished package collection for 2020-2025")
 
 # Saving the raw House granule metadata 
 readr::write_csv(
-  all_house_granules,
-  file.path(raw_congressional_record_path, "house_granules_2010_2025_raw.csv")
+  all_house_granules_recent,
+  file.path(raw_congressional_record_path, "house_granules_2020_2025_raw.csv")
 )
 
 # Filtering out procedural items 
-kept_granules <- all_house_granules |>
+kept_granules <- all_house_granules_recent |>
   dplyr::filter(
     !title %in% excluded_titles
   )
@@ -80,21 +56,28 @@ chunk_size <- 100
 
 granule_chunks <- split(
   kept_granules,
-  ceiling(seq_len(nrow(kept_granules)) / chunk_size)
+  ceiling(seq_len(nrow(kept_granules_recent)) / chunk_size)
 )
 
 # Creating an empty list to store chunk results
-floor_speeches_chunks <- vector("list", length(granule_chunks))
+message("Starting chunked text collection for 2020-2025")
 
-message("Starting chunked text collection")
-
-for (i in seq_along(granule_chunks)) {
+for (i in seq_along(granule_chunks_recent)) {
   
-  message("Processing chunk ", i, " of ", length(granule_chunks))
+  output_file <- file.path(
+    interim_floor_speeches_path,
+    paste0("floor_speeches_recent_chunk_", i, ".csv")
+  )
+  if (file.exists(output_file)) {
+    message("Skipping existing recent chunk ", i)
+    next
+  }
   
-  chunk_data <- granule_chunks[[i]]
+  message("Processing recent chunk ", i, " of ", length(granule_chunks_recent))
   
-  floor_speeches_chunks[[i]] <- chunk_data |>
+  chunk_data <- granule_chunks_recent[[i]]
+  
+  chunk_result <- chunk_data |>
     dplyr::transmute(
       date = as.Date(dateIssued),
       package_id,
@@ -111,22 +94,18 @@ for (i in seq_along(granule_chunks)) {
       )
     ) |>
     dplyr::mutate(
-      word_count = stringr::str_count(text, "\\S+")
+      word_count = stringr::str_count(text, "\\S+"),
+      text_missing = is.na(text),
+      short_text = word_count < 50
     ) |>
-    dplyr::filter(!is.na(text), word_count >= 50) |>
     dplyr::distinct(granule_id, .keep_all = TRUE) |>
     dplyr::arrange(date, granule_id)
   
   # Saving each chunk immediately
   readr::write_csv(
-    floor_speeches_chunks[[i]],
-    file.path(
-      interim_floor_speeches_path,
-      paste0("floor_speeches_chunk_", i, ".csv")
-    )
+    chunk_result,
+    output_file
   )
 }
 
-message("Finished chunked text collection")
-
-
+message("Finished chunked text collection for 2020-2025")
