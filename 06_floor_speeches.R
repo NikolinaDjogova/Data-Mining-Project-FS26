@@ -13,3 +13,9 @@ chunk_files <- list.files(
   full.names = TRUE
 )
 
+# Sorting files by chunk number
+chunk_numbers <- stringr::str_extract(basename(chunk_files), "[0-9]+") |>
+  as.integer()
+
+chunk_files <- chunk_files[order(chunk_numbers)]
+
