@@ -18,21 +18,45 @@ execute:
 
 Political communication plays a central role in shaping how information is conveyed, interpreted, and acted upon. In recent years, increasing attention is being given to how politicians communicate with broader audiences, particularly in context outside formal institutions. However, less attention has been paid to whether communication within institutional settings has also changed over time.
 
+Legislative speech, such as that from the US Congressional record, represents a structured and consistent form of political communication. These speeches are produced within formal constraints and are intended to document legislative activity, yet they also serve as a medium through which political actors present arguments, frame issues, and signal positions.
+
+This project examines whether there have been measurable changes in the linguistic characteristics of House floor speech over time. In particular, it focuses on whether speech length and complexity show systematic variation across years. Understanding these patterns provides insight into whether broader shifts in political communication are reflected even within formal institutional contexts.
+
 ## Relevance
 
-Legislative speech, such as that from the US Congressional record, represents a structured and consistent form of political communication. These speeches are produced within formal constraints and are intended to document legislative activity, yet they also serve as a medium through which political actors present arguments, frame issues, and signal positions.
+This project is relevant for understanding how political communication evolves over time, particularly within formal institutional settings. While much of the existing research focuses on campaign messaging, media appearances, or social media communication, legislative speech remains an important but relatively underexplored domain.
+
+Analyzing changes in speech patterns can provide insight into how politicians adapt their communication strategies in response to changing audiences, media environments, and political incentives. If legislative speech becomes simpler or more standardized over time, this may reflect broader shifts toward accessibility and persuasion in political communication.
+
+Additionally, this project demonstrates the value of computational methods for analyzing large collections of text. By applying automated data collection and text analysis techniques, it becomes possible to identify patterns that would not be observable through manual analysis. This approach aligns with the growing use of quantitative text analysis in political science and communication research (Grimmer and Stewart 2013; Gentzkow, Shapiro, and Taddy 2019).
 
 ## Project Overview
 
-This project examines whether there have been measurable changes in the linguistic characteristics of House floor speech over time. In particular, it focuses on whether speech length and complexity show systematic variation across years. Understanding these patterns provides insight into whether broader shifts in political communication are reflected even within formal institutional contexts.
+This project uses data from the U.S. Congressional Record to analyze speeches from the House of Representatives between 2010 and 2025. The data was collected programmatically using the GovInfo API and processed in R.
+
+The analysis focuses on descriptive measures of speech characteristics, including the number of speeches per year and the length of speeches measured by word count. These measures are used to examine trends over time and to assess whether there are systematic changes in how legislative speech is structured.
 
 # Research Question and Expectations
 
 ## Research Question
 
+The central research question of this project is:
+
+Do members of the U.S. House of Representatives use less linguistically complex language in public-facing communication than in floor speech, and has that gap widened over time?
+
 ## Hypotheses
 
+H1: Public-facing communication by House members is less linguistically complex than institutional floor speech.
+
+H2: The gap in linguistic complexity between public-facing and institutional communication has widened over time.
+
+H3: As an extension, one-minute floor speeches are less linguistically complex than full floor speeches and closer in complexity to public-facing communication.
+
 ## Expectations
+
+Based on existing research on political communication, it is expected that speech patterns will show measurable variation over time. In particular, prior work suggests that political language often becomes more accessible as communication increasingly targets broader audiences (Grimmer 2013; Gentzkow, Shapiro, and Taddy 2019).
+
+Therefore, it is expected that more recent speeches may be shorter or less complex on average compared to earlier years. At the same time, variation across years is also expected due to differences in legislative activity, political context, and institutional dynamics.
 
 # Literature Review
 
