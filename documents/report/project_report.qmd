@@ -16,9 +16,15 @@ execute:
 
 # Introduction
 
+Political communication plays a central role in shaping how information is conveyed, interpreted, and acted upon. In recent years, increasing attention is being given to how politicians communicate with broader audiences, particularly in context outside formal institutions. However, less attention has been paid to whether communication within institutional settings has also changed over time.
+
 ## Relevance
 
+Legislative speech, such as that from the US Congressional record, represents a structured and consistent form of political communication. These speeches are produced within formal constraints and are intended to document legislative activity, yet they also serve as a medium through which political actors present arguments, frame issues, and signal positions.
+
 ## Project Overview
+
+This project examines whether there have been measurable changes in the linguistic characteristics of House floor speech over time. In particular, it focuses on whether speech length and complexity show systematic variation across years. Understanding these patterns provides insight into whether broader shifts in political communication are reflected even within formal institutional contexts.
 
 # Research Question and Expectations
 
