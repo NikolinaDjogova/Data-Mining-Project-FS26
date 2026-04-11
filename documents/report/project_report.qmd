@@ -60,6 +60,18 @@ Therefore, it is expected that more recent speeches may be shorter or less compl
 
 # Literature Review
 
+Research on political communication has long emphasized the importance of language in shaping political behavior and public understanding. Political actors use language not only to convey information but also to frame issues, construct narratives, and influence perception (Grimmer 2013).
+
+One key theme in this literature is the role of simplification in political communication. Politicians often adapt their language to make complex issues more accessible, particularly when addressing broader audiences. This tendency toward simplification is linked to the need to communicate effectively in increasingly competitive and media-driven environments. Legislative speech in particular plays a dual role: it both documents institutional activity and serves as a strategic form of communication directed at multiple audiences, including constituents, media, and other political actors (Grimmer 2013; Mayhew 1974).
+
+At the same time, institutional communication has traditionally been viewed as more formal and structured. Legislative speech, in particular, is often associated with procedural norms and technical language. However, recent research suggests that these distinctions may be evolving, as communication practices shift across different contexts. Classic theories of congressional behavior suggest that members of Congress engage in activities such as position-taking and credit-claiming in ways that are visible and understandable to the public (Mayhew 1974). This implies that even formal legislative speech may be shaped by considerations of audience and clarity, rather than purely institutional norms.
+
+More recent research has extended this perspective by examining how political language changes over time and across contexts. Studies of congressional speech have shown that linguistic patterns reflect both ideological positioning and strategic communication choices (Gentzkow, Shapiro, and Taddy 2019). At the same time, there is growing evidence that political communication has become more accessible and audience-oriented, particularly in response to changes in the media environment (Prior 2007).
+
+The development of computational text analysis has significantly expanded the ability to study political language at scale. Methods for analyzing large collections of text allow researchers to identify patterns in word use, structure, and complexity across time and contexts (Grimmer and Stewart 2013). These approaches have been widely applied in political science, including the analysis of legislative speech and policy communication (Gentzkow, Shapiro, and Taddy 2019).
+
+This project builds on these contributions by applying computational methods to a large corpus of legislative speech. By focusing on measurable features such as word count and speech distribution, it provides a data-driven perspective on how political communication may be changing within a formal institutional setting.
+
 # Methdology
 
 ## Definitions?
