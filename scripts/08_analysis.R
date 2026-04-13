@@ -103,10 +103,11 @@ overall_summary <- tibble::tibble(
 )
 
 ### Yearly summaries 
+# Number of speeches per year
 speeches_per_year <- analysis_data |>
   dplyr::count(year, name = "num_speeches")
 
-# Flesch-Kincaid by year 
+# Flesch-Kincaid by year
 fk_by_year <- analysis_data |>
   dplyr::group_by(year) |>
   dplyr::summarise(
@@ -122,41 +123,15 @@ fk_by_year <- analysis_data |>
 sentence_complexity_by_year <- analysis_data |>
   dplyr::group_by(year) |>
   dplyr::summarise(
-    avg_word_count = mean(word_count, na.rm = TRUE),
-    median_word_count = median(word_count, na.rm = TRUE),
-    sd_word_count = sd(word_count, na.rm = TRUE),
-    p25_word_count = quantile(word_count, 0.25, na.rm = TRUE),
-    p75_word_count = quantile(word_count, 0.75, na.rm = TRUE),
-    
     avg_sentence_count = mean(sentence_count, na.rm = TRUE),
     median_sentence_count = median(sentence_count, na.rm = TRUE),
-    
     avg_sentence_length = mean(avg_sentence_length, na.rm = TRUE),
     median_sentence_length = median(avg_sentence_length, na.rm = TRUE),
     sd_sentence_length = sd(avg_sentence_length, na.rm = TRUE),
-    
-    avg_fk_grade = mean(fk_grade, na.rm = TRUE),
-    median_fk_grade = median(fk_grade, na.rm = TRUE),
-    sd_fk_grade = sd(fk_grade, na.rm = TRUE),
-    
+    p25_sentence_length = quantile(avg_sentence_length, 0.25, na.rm = TRUE),
+    p75_sentence_length = quantile(avg_sentence_length, 0.75, na.rm = TRUE),
     .groups = "drop"
   )
-
-yearly_summary <- speeches_per_year |>
-  dplyr::left_join(sentence_complexity_by_year, by = "year")
-
-# Speech length cat distribution by year
-speech_type_distribution <- analysis_data |>
-  dplyr::group_by(year, speech_type) |>
-  dplyr::summarise(
-    n = dplyr::n(),
-    .groups = "drop"
-  ) |>
-  dplyr::group_by(year) |>
-  dplyr::mutate(
-    proportion = n / sum(n)
-  ) |>
-  dplyr::ungroup()
 
 # Word count by year
 wordcount_by_year <- analysis_data |>
@@ -170,21 +145,7 @@ wordcount_by_year <- analysis_data |>
     .groups = "drop"
   )
 
-# Correlation among measures 
-correlation_summary <- tibble::tibble(
-  measure_pair = c(
-    "word_count_and_fk_grade",
-    "word_count_and_avg_sentence_length",
-    "avg_sentence_length_and_fk_grade"
-  ),
-  correlation = c(
-    cor(analysis_data$word_count, analysis_data$fk_grade, use = "complete.obs"),
-    cor(analysis_data$word_count, analysis_data$avg_sentence_length, use = "complete.obs"),
-    cor(analysis_data$avg_sentence_length, analysis_data$fk_grade, use = "complete.obs")
-  )
-)
-
-# Combined yearly summary 
+# Clean combined yearly summary
 yearly_summary <- speeches_per_year |>
   dplyr::left_join(fk_by_year, by = "year") |>
   dplyr::left_join(sentence_complexity_by_year, by = "year") |>
@@ -192,13 +153,8 @@ yearly_summary <- speeches_per_year |>
 
 # Saving output tables 
 readr::write_csv(
-  overall_summary,
-  file.path(output_tables_path, "08_overall_summary.csv")
-)
-
-readr::write_csv(
-  speeches_per_year,
-  file.path(output_tables_path, "08_speeches_per_year.csv")
+  fk_by_year,
+  file.path(output_tables_path, "08_fk_by_year.csv")
 )
 
 readr::write_csv(
@@ -207,28 +163,13 @@ readr::write_csv(
 )
 
 readr::write_csv(
-  yearly_summary,
-  file.path(output_tables_path, "08_yearly_summary.csv")
-)
-
-readr::write_csv(
-  speech_type_distribution,
-  file.path(output_tables_path, "08_speech_type_distribution.csv")
-)
-
-readr::write_csv(
-  correlation_summary,
-  file.path(output_tables_path, "08_correlation_summary.csv")
-)
-
-readr::write_csv(
-    fk_by_year,
-    file.path(output_tables_path, "08_fk_by_year.csv")
-  )
-  
-readr::write_csv(
   wordcount_by_year,
   file.path(output_tables_path, "08_wordcount_by_year.csv")
+)
+
+readr::write_csv(
+  yearly_summary,
+  file.path(output_tables_path, "08_yearly_summary.csv")
 )
 
   # checks 
@@ -258,8 +199,10 @@ readr::write_csv(
   
   print(overall_summary)
   print(yearly_summary)
-  print(correlation_summary)
   print(checks)
   print(fk_by_year)
   print(wordcount_by_year)
+  
+  names(yearly_summary)
+  
   
