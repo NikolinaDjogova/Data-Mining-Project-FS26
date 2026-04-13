@@ -49,3 +49,21 @@ analysis_data <- analysis_data |>
     avg_sentence_length = as.numeric(avg_sentence_length),
     word_count = as.numeric(word_count)
   )
+
+###Plots 
+# Creating my aesthetic theme for all plots 
+
+project_theme <- function() {
+  theme_minimal(base_size = 12) +
+    theme(
+      plot.title = element_text(face = "bold", size = 15, hjust = 0),
+      plot.subtitle = element_text(size = 11, hjust = 0),
+      plot.caption = element_text(size = 9, hjust = 1, color = "gray40"),
+      axis.title = element_text(face = "bold"),
+      axis.text = element_text(color = "gray20"),
+      panel.grid.minor = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_line(linewidth = 0.3, color = "gray85"),
+      plot.margin = margin(12, 16, 12, 12)
+    )
+}
