@@ -44,4 +44,5 @@ I am including the exact prompts I used while working on this project.
 26. Whats wrong with my table?? Why do columns keep repeating?
 27. I need to do the plots now. I want all of them to have a consistent theme, help me write the code for it.
 28. Why save plots like this? won't they save anyway?
-29. 
+29. This is my regression model, i'm not sure what to do next with it like how to actually extract the coefficients
+30. 
