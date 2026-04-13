@@ -80,3 +80,6 @@ readr::write_csv(
   file.path(output_checks_path, "06_combine_floor_speeches_checks.csv")
 )
 
+# Quick yearly validation
+floor_speeches |>
+  dplyr::count(year)
