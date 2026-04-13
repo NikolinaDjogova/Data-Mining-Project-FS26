@@ -68,3 +68,31 @@ readr::write_csv(
   analysis_data,
   file.path(interim_floor_speeches_path, "floor_speeches_with_measures.csv")
 )
+
+# Descriptive summary
+overall_summary <- tibble::tibble(
+  metric = c(
+    "total_speeches",
+    "mean_word_count",
+    "median_word_count",
+    "sd_word_count",
+    "mean_sentence_count",
+    "median_sentence_count",
+    "mean_avg_sentence_length",
+    "median_avg_sentence_length",
+    "mean_fk_grade",
+    "median_fk_grade"
+  ),
+  value = c(
+    nrow(analysis_data),
+    mean(analysis_data$word_count, na.rm = TRUE),
+    median(analysis_data$word_count, na.rm = TRUE),
+    sd(analysis_data$word_count, na.rm = TRUE),
+    mean(analysis_data$sentence_count, na.rm = TRUE),
+    median(analysis_data$sentence_count, na.rm = TRUE),
+    mean(analysis_data$avg_sentence_length, na.rm = TRUE),
+    median(analysis_data$avg_sentence_length, na.rm = TRUE),
+    mean(analysis_data$fk_grade, na.rm = TRUE),
+    median(analysis_data$fk_grade, na.rm = TRUE)
+  )
+)
