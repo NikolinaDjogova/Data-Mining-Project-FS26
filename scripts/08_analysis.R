@@ -153,3 +153,33 @@ correlation_summary <- tibble::tibble(
     cor(analysis_data$avg_sentence_length, analysis_data$fk_grade, use = "complete.obs")
   )
 )
+
+# Saving output tables 
+readr::write_csv(
+  overall_summary,
+  file.path(output_tables_path, "08_overall_summary.csv")
+)
+
+readr::write_csv(
+  speeches_per_year,
+  file.path(output_tables_path, "08_speeches_per_year.csv")
+)
+
+readr::write_csv(
+  complexity_by_year,
+  file.path(output_tables_path, "08_complexity_by_year.csv")
+)
+
+readr::write_csv(
+  yearly_summary,
+  file.path(output_tables_path, "08_yearly_summary.csv")
+)
+
+readr::write_csv(
+  speech_type_distribution,
+  file.path(output_tables_path, "08_speech_type_distribution.csv")
+)
+
+readr::write_csv(
+  correlation_summary,
+  file.path(output_tables_path, "08_correlation_summary.csv")
