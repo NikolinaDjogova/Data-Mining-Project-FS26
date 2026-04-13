@@ -97,10 +97,23 @@ overall_summary <- tibble::tibble(
   )
 )
 
-# Yearly summaries 
+### Yearly summaries 
 speeches_per_year <- analysis_data |>
   dplyr::count(year, name = "num_speeches")
 
+# Flesch-Kincaid by year 
+fk_by_year <- analysis_data |>
+  dplyr::group_by(year) |>
+  dplyr::summarise(
+    avg_fk_grade = mean(fk_grade, na.rm = TRUE),
+    median_fk_grade = median(fk_grade, na.rm = TRUE),
+    sd_fk_grade = sd(fk_grade, na.rm = TRUE),
+    p25_fk_grade = quantile(fk_grade, 0.25, na.rm = TRUE),
+    p75_fk_grade = quantile(fk_grade, 0.75, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Sentence complexity by year
 complexity_by_year <- analysis_data |>
   dplyr::group_by(year) |>
   dplyr::summarise(
