@@ -54,3 +54,33 @@ readr::write_csv(
   analysis_data,
   file.path(interim_floor_speeches_path, "floor_speeches_analysis_ready.csv")
 )
+
+# Creating checks table
+checks <- tibble::tibble(
+  metric = c(
+    "rows_in_final_combined",
+    "rows_in_cleaned_data",
+    "rows_in_analysis_data",
+    "missing_text_rows",
+    "zero_word_rows",
+    "short_text_rows",
+    "min_year",
+    "max_year"
+  ),
+  value = c(
+    nrow(floor_speeches),
+    nrow(floor_speeches_clean),
+    nrow(analysis_data),
+    sum(floor_speeches_clean$text_missing, na.rm = TRUE),
+    sum(floor_speeches_clean$zero_word, na.rm = TRUE),
+    sum(floor_speeches_clean$short_text, na.rm = TRUE),
+    min(floor_speeches_clean$year, na.rm = TRUE),
+    max(floor_speeches_clean$year, na.rm = TRUE)
+  )
+)
+
+# Saving checks
+readr::write_csv(
+  checks,
+  file.path(output_checks_path, "07_cleaning_checks.csv")
+)
