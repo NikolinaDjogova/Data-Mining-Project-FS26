@@ -220,6 +220,11 @@ readr::write_csv(
     file.path(output_tables_path, "08_fk_by_year.csv")
   )
   
+readr::write_csv(
+  wordcount_by_year,
+  file.path(output_tables_path, "08_wordcount_by_year.csv")
+)
+
   # checks 
   checks <- tibble::tibble(
     metric = c(
