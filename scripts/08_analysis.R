@@ -143,7 +143,7 @@ sentence_complexity_by_year <- analysis_data |>
   )
 
 yearly_summary <- speeches_per_year |>
-  dplyr::left_join(complexity_by_year, by = "year")
+  dplyr::left_join(sentence_complexity_by_year, by = "year")
 
 # Speech length cat distribution by year
 speech_type_distribution <- analysis_data |>
@@ -202,8 +202,8 @@ readr::write_csv(
 )
 
 readr::write_csv(
-  complexity_by_year,
-  file.path(output_tables_path, "08_complexity_by_year.csv")
+  sentence_complexity_by_year,
+  file.path(output_tables_path, "08_sentence_complexity_by_year.csv")
 )
 
 readr::write_csv(
@@ -219,7 +219,8 @@ readr::write_csv(
 readr::write_csv(
   correlation_summary,
   file.path(output_tables_path, "08_correlation_summary.csv")
-  
+)
+
 readr::write_csv(
     fk_by_year,
     file.path(output_tables_path, "08_fk_by_year.csv")
@@ -261,3 +262,4 @@ readr::write_csv(
   print(checks)
   print(fk_by_year)
   print(wordcount_by_year)
+  
