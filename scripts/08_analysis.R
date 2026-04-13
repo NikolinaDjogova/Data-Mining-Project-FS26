@@ -11,6 +11,11 @@ floor_speeches <- readr::read_csv(
   file.path(interim_floor_speeches_path, "floor_speeches_FINAL.csv"),
   show_col_types = FALSE
 )
+
+analysis_data <- readr::read_csv(
+  file.path(interim_floor_speeches_path, "floor_speeches_analysis_ready.csv"),
+  show_col_types = FALSE
+)
  
 # Loading packages
 library(dplyr)
@@ -114,7 +119,7 @@ fk_by_year <- analysis_data |>
   )
 
 # Sentence complexity by year
-complexity_by_year <- analysis_data |>
+sentence_complexity_by_year <- analysis_data |>
   dplyr::group_by(year) |>
   dplyr::summarise(
     avg_word_count = mean(word_count, na.rm = TRUE),
@@ -254,4 +259,5 @@ readr::write_csv(
   print(yearly_summary)
   print(correlation_summary)
   print(checks)
-  
+  print(fk_by_year)
+  print(wordcount_by_year)
