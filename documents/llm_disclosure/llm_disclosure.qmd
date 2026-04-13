@@ -43,3 +43,5 @@ I am including the exact prompts I used while working on this project.
 25. I'm confused, not sure how to run the flesch kincaid test by year.
 26. Whats wrong with my table?? Why do columns keep repeating?
 27. I need to do the plots now. I want all of them to have a consistent theme, help me write the code for it.
+28. Why save plots like this? won't they save anyway?
+29. 
