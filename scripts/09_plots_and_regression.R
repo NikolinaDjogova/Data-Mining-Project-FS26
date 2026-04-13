@@ -121,3 +121,20 @@ plot_sentence_length <- ggplot(sentence_complexity_by_year, aes(x = year, y = av
   project_theme()
 plot_sentence_length
 
+# Average word count over time
+plot_word_count <- ggplot(wordcount_by_year, aes(x = year, y = avg_word_count)) +
+  geom_ribbon(
+    aes(ymin = p25_word_count, ymax = p75_word_count),
+    alpha = 0.18
+  ) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = seq(min(wordcount_by_year$year), max(wordcount_by_year$year), by = 1)) +
+  labs(
+    title = "Average Word Count by Year",
+    subtitle = "Supporting indicator of structural variation",
+    x = "Year",
+    y = "Average word count",
+    caption = "Ribbon shows the 25th–7w5th percentile range"
+  ) +
+  project_theme()
