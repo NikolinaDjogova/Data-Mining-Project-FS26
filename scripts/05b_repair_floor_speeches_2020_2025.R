@@ -18,3 +18,14 @@ all_house_granules_recent <- readr::read_csv(
   show_col_types = FALSE
 )
 
+# Filtering out procedural items
+kept_granules_recent <- all_house_granules_recent |>
+  dplyr::filter(!title %in% excluded_titles)
+
+# Splitting into chunks of 100
+chunk_size <- 100
+
+granule_chunks_recent <- split(
+  kept_granules_recent,
+  ceiling(seq_len(nrow(kept_granules_recent)) / chunk_size)
+)
