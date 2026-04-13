@@ -101,3 +101,23 @@ plot_fk <- ggplot(fk_by_year, aes(x = year, y = avg_fk_grade)) +
   ) +
   project_theme()
 plot_fk
+
+# Average sentence length over time 
+plot_sentence_length <- ggplot(sentence_complexity_by_year, aes(x = year, y = avg_sentence_length)) +
+  geom_ribbon(
+    aes(ymin = p25_sentence_length, ymax = p75_sentence_length),
+    alpha = 0.18
+  ) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = seq(min(sentence_complexity_by_year$year), max(sentence_complexity_by_year$year), by = 1)) +
+  labs(
+    title = "Average Sentence Length by Year",
+    subtitle = "Measured as average words per sentence in each year",
+    x = "Year",
+    y = "Average words per sentence",
+    caption = "Ribbon shows the 25th–75th percentile range"
+  ) +
+  project_theme()
+plot_sentence_length
+
