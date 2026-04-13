@@ -215,6 +215,11 @@ readr::write_csv(
   correlation_summary,
   file.path(output_tables_path, "08_correlation_summary.csv")
   
+readr::write_csv(
+    fk_by_year,
+    file.path(output_tables_path, "08_fk_by_year.csv")
+  )
+  
   # checks 
   checks <- tibble::tibble(
     metric = c(
