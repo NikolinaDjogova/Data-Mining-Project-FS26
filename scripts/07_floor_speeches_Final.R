@@ -34,3 +34,11 @@ floor_speeches_clean <- floor_speeches_clean |>
     zero_word = is.na(word_count) | word_count == 0,
     short_text = !is.na(word_count) & word_count < 50
   )
+
+# Creating analysis-ready dataset
+analysis_data <- floor_speeches_clean |>
+  dplyr::filter(
+    !text_missing,
+    !zero_word,
+    !short_text
+  )
