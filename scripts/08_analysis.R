@@ -183,3 +183,34 @@ readr::write_csv(
 readr::write_csv(
   correlation_summary,
   file.path(output_tables_path, "08_correlation_summary.csv")
+  
+  # checks 
+  checks <- tibble::tibble(
+    metric = c(
+      "rows_in_analysis_data",
+      "missing_sentence_count",
+      "missing_avg_sentence_length",
+      "missing_fk_grade",
+      "min_year",
+      "max_year"
+    ),
+    value = c(
+      nrow(analysis_data),
+      sum(is.na(analysis_data$sentence_count)),
+      sum(is.na(analysis_data$avg_sentence_length)),
+      sum(is.na(analysis_data$fk_grade)),
+      min(analysis_data$year, na.rm = TRUE),
+      max(analysis_data$year, na.rm = TRUE)
+    )
+  )
+  
+  readr::write_csv(
+    checks,
+    file.path(output_checks_path, "08_measurement_checks.csv")
+  )
+  
+  print(overall_summary)
+  print(yearly_summary)
+  print(correlation_summary)
+  print(checks)
+  
