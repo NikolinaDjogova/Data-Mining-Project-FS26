@@ -40,3 +40,12 @@ yearly_summary <- readr::read_csv(
   file.path(output_tables_path, "08_yearly_summary.csv"),
   show_col_types = FALSE
 )
+
+# Some basic checks 
+analysis_data <- analysis_data |>
+  dplyr::mutate(
+    year = as.numeric(year),
+    fk_grade = as.numeric(fk_grade),
+    avg_sentence_length = as.numeric(avg_sentence_length),
+    word_count = as.numeric(word_count)
+  )
