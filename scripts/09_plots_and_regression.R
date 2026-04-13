@@ -67,3 +67,19 @@ project_theme <- function() {
       plot.margin = margin(12, 16, 12, 12)
     )
 }
+
+# Number of speeches over time 
+plot_speeches <- ggplot(speeches_per_year, aes(x = year, y = num_speeches)) +
+  geom_area(alpha = 0.30) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = seq(min(speeches_per_year$year), max(speeches_per_year$year), by = 1)) +
+  labs(
+    title = "Number of House Floor Speeches per Year",
+    subtitle = "Analysis-ready speeches, 2010–2025",
+    x = "Year",
+    y = "Number of speeches",
+    caption = "Source: U.S. Congressional Record"
+  ) +
+  project_theme()
+plot_speeches
