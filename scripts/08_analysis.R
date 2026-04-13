@@ -31,3 +31,15 @@ analysis_data <- analysis_data |>
     word_count = as.numeric(word_count),
     text = stringr::str_squish(text)
   )
+
+### Creating linguistic complexity measures 
+
+# Sentence count based on punctuation
+analysis_data <- analysis_data |>
+  dplyr::mutate(
+    sentence_count = stringr::str_count(text, "[.!?]+"),
+    sentence_count = dplyr::if_else(sentence_count == 0, NA_integer_, sentence_count),
+    avg_sentence_length = word_count / sentence_count
+  )
+
+
