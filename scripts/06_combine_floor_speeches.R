@@ -55,3 +55,28 @@ readr::write_csv(
   floor_speeches,
   file.path(interim_floor_speeches_path, "floor_speeches_FINAL.csv")
 )
+
+# Creating checks table
+checks <- tibble::tibble(
+  metric = c(
+    "chunk_files_found",
+    "final_rows",
+    "unique_granule_ids",
+    "min_year",
+    "max_year"
+  ),
+  value = c(
+    length(all_chunk_files),
+    nrow(floor_speeches),
+    dplyr::n_distinct(floor_speeches$granule_id),
+    min(floor_speeches$year, na.rm = TRUE),
+    max(floor_speeches$year, na.rm = TRUE)
+  )
+)
+
+# Saving checks
+readr::write_csv(
+  checks,
+  file.path(output_checks_path, "06_combine_floor_speeches_checks.csv")
+)
+
