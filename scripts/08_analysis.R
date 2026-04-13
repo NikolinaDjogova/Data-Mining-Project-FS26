@@ -53,3 +53,13 @@ analysis_data <- analysis_data |>
     fk_grade = fk_scores$Flesch.Kincaid
   )
 
+# Speech type categories
+analysis_data <- analysis_data |>
+  dplyr::mutate(
+    speech_type = dplyr::case_when(
+      word_count < 200 ~ "short",
+      word_count < 1000 ~ "medium",
+      TRUE ~ "long"
+    )
+  )
+
