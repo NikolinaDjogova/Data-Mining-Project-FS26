@@ -96,3 +96,35 @@ overall_summary <- tibble::tibble(
     median(analysis_data$fk_grade, na.rm = TRUE)
   )
 )
+
+# Yearly summaries 
+speeches_per_year <- analysis_data |>
+  dplyr::count(year, name = "num_speeches")
+
+complexity_by_year <- analysis_data |>
+  dplyr::group_by(year) |>
+  dplyr::summarise(
+    avg_word_count = mean(word_count, na.rm = TRUE),
+    median_word_count = median(word_count, na.rm = TRUE),
+    sd_word_count = sd(word_count, na.rm = TRUE),
+    p25_word_count = quantile(word_count, 0.25, na.rm = TRUE),
+    p75_word_count = quantile(word_count, 0.75, na.rm = TRUE),
+    
+    avg_sentence_count = mean(sentence_count, na.rm = TRUE),
+    median_sentence_count = median(sentence_count, na.rm = TRUE),
+    
+    avg_sentence_length = mean(avg_sentence_length, na.rm = TRUE),
+    median_sentence_length = median(avg_sentence_length, na.rm = TRUE),
+    sd_sentence_length = sd(avg_sentence_length, na.rm = TRUE),
+    
+    avg_fk_grade = mean(fk_grade, na.rm = TRUE),
+    median_fk_grade = median(fk_grade, na.rm = TRUE),
+    sd_fk_grade = sd(fk_grade, na.rm = TRUE),
+    
+    .groups = "drop"
+  )
+
+yearly_summary <- speeches_per_year |>
+  dplyr::left_join(complexity_by_year, by = "year")
+
+
