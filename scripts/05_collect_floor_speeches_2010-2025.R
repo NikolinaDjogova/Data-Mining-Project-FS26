@@ -11,13 +11,17 @@ if (api_key == "") {
   stop("The key is missing from the environment")
 }
 
+###NOTE
+# This script is the original full collection pipeline for 2010-2025.
+# The text extraction for 2020-2025 turned out to need repair (script 05b)
+
 # Ensuring output folders exist
 dir.create(raw_congressional_record_path, recursive = TRUE, showWarnings = FALSE)
 dir.create(interim_floor_speeches_path, recursive = TRUE, showWarnings = FALSE)
 
 # Defining the full date range 
 all_dates <- seq.Date(
-  from = as.Date ("2020-01-01"),
+  from = as.Date ("2010-01-01"),
   to = as.Date("2025-12-31"),
   by = "day"
 )
@@ -25,10 +29,10 @@ all_dates <- seq.Date(
 # Building package IDs for the full date range
 package_ids <- paste0("CREC-", all_dates)
 
-message ("Starting package collection for 2020-2025")
+message ("Starting package collection")
 
 # Collecting House granules data 
-all_house_granules_recent <- purrr::map_dfr(
+all_house_granules <- purrr::map_dfr(
   package_ids,
   function(pkg) {
     message("Processing package: ", pkg)
@@ -37,16 +41,16 @@ all_house_granules_recent <- purrr::map_dfr(
   }
 )
 
-message("Finished package collection for 2020-2025")
+message("Finished package collection")
 
 # Saving the raw House granule metadata 
 readr::write_csv(
-  all_house_granules_recent,
-  file.path(raw_congressional_record_path, "house_granules_2020_2025_raw.csv")
+  all_house_granules,
+  file.path(raw_congressional_record_path, "house_granules_2010_2025_raw.csv")
 )
 
 # Filtering out procedural items 
-kept_granules <- all_house_granules_recent |>
+kept_granules <- all_house_granules |>
   dplyr::filter(
     !title %in% excluded_titles
   )
@@ -59,23 +63,21 @@ granule_chunks <- split(
   ceiling(seq_len(nrow(kept_granules_recent)) / chunk_size)
 )
 
-# Creating an empty list to store chunk results
-message("Starting chunked text collection for 2020-2025")
+length(granule_chunks_recent)
 
-for (i in seq_along(granule_chunks_recent)) {
+# Chunked text collection
+message("Starting chunked text collection")
+
+for (i in seq_along(granule_chunks)) {
   
   output_file <- file.path(
     interim_floor_speeches_path,
-    paste0("floor_speeches_recent_chunk_", i, ".csv")
+    paste0("floor_speeches_chunk_", i, ".csv")
   )
-  if (file.exists(output_file)) {
-    message("Skipping existing recent chunk ", i)
-    next
-  }
   
-  message("Processing recent chunk ", i, " of ", length(granule_chunks_recent))
+  message("Processing chunk ", i, " of ", length(granule_chunks))
   
-  chunk_data <- granule_chunks_recent[[i]]
+  chunk_data <- granule_chunks[[i]]
   
   chunk_result <- chunk_data |>
     dplyr::transmute(
@@ -94,10 +96,9 @@ for (i in seq_along(granule_chunks_recent)) {
       )
     ) |>
     dplyr::mutate(
-      word_count = stringr::str_count(text, "\\S+"),
-      text_missing = is.na(text),
-      short_text = word_count < 50
+      word_count = stringr::str_count(text, "\\S+")
     ) |>
+    dplyr::filter(!is.na(text), word_count >= 50) |>
     dplyr::distinct(granule_id, .keep_all = TRUE) |>
     dplyr::arrange(date, granule_id)
   
@@ -108,4 +109,4 @@ for (i in seq_along(granule_chunks_recent)) {
   )
 }
 
-message("Finished chunked text collection for 2020-2025")
+message("Finished chunked text collection")
