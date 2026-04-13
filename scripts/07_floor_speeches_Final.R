@@ -27,3 +27,10 @@ floor_speeches_clean <- floor_speeches |>
   dplyr::distinct(granule_id, .keep_all = TRUE) |>
   dplyr::arrange(date, granule_id)
 
+# Creating diagnostic flags
+floor_speeches_clean <- floor_speeches_clean |>
+  dplyr::mutate(
+    text_missing = is.na(text) | text == "",
+    zero_word = is.na(word_count) | word_count == 0,
+    short_text = !is.na(word_count) & word_count < 50
+  )
