@@ -82,4 +82,22 @@ plot_speeches <- ggplot(speeches_per_year, aes(x = year, y = num_speeches)) +
     caption = "Source: U.S. Congressional Record"
   ) +
   project_theme()
-plot_speeches
+
+# Average Flesch-Kincaid grade level over time 
+plot_fk <- ggplot(fk_by_year, aes(x = year, y = avg_fk_grade)) +
+  geom_ribbon(
+    aes(ymin = p25_fk_grade, ymax = p75_fk_grade),
+    alpha = 0.18
+  ) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = seq(min(fk_by_year$year), max(fk_by_year$year), by = 1)) +
+  labs(
+    title = "Average Flesch-Kincaid Grade Level by Year",
+    subtitle = "Higher values indicate more difficult or more structurally demanding texts",
+    x = "Year",
+    y = "Average Flesch-Kincaid Grade Level",
+    caption = "Ribbon shows the 25th–75th percentile range"
+  ) +
+  project_theme()
+plot_fk
