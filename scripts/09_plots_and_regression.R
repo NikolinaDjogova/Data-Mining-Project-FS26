@@ -172,3 +172,9 @@ ggsave(
   height = 5.5,
   dpi = 300
 )
+
+# Regressions 
+model_fk <- lm(fk_grade ~ year, data = analysis_data)
+model_sentence_length <- lm(avg_sentence_length ~ year, data = analysis_data)
+model_word_count <- lm(word_count ~ year, data = analysis_data)
+
