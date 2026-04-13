@@ -139,3 +139,17 @@ speech_type_distribution <- analysis_data |>
     proportion = n / sum(n)
   ) |>
   dplyr::ungroup()
+
+# Correlation among measures 
+correlation_summary <- tibble::tibble(
+  measure_pair = c(
+    "word_count_and_fk_grade",
+    "word_count_and_avg_sentence_length",
+    "avg_sentence_length_and_fk_grade"
+  ),
+  correlation = c(
+    cor(analysis_data$word_count, analysis_data$fk_grade, use = "complete.obs"),
+    cor(analysis_data$word_count, analysis_data$avg_sentence_length, use = "complete.obs"),
+    cor(analysis_data$avg_sentence_length, analysis_data$fk_grade, use = "complete.obs")
+  )
+)
