@@ -153,6 +153,18 @@ speech_type_distribution <- analysis_data |>
   ) |>
   dplyr::ungroup()
 
+# Word count by year
+wordcount_by_year <- analysis_data |>
+  dplyr::group_by(year) |>
+  dplyr::summarise(
+    avg_word_count = mean(word_count, na.rm = TRUE),
+    median_word_count = median(word_count, na.rm = TRUE),
+    sd_word_count = sd(word_count, na.rm = TRUE),
+    p25_word_count = quantile(word_count, 0.25, na.rm = TRUE),
+    p75_word_count = quantile(word_count, 0.75, na.rm = TRUE),
+    .groups = "drop"
+  )
+
 # Correlation among measures 
 correlation_summary <- tibble::tibble(
   measure_pair = c(
