@@ -63,3 +63,8 @@ analysis_data <- analysis_data |>
     )
   )
 
+# Saving dataset with measures 
+readr::write_csv(
+  analysis_data,
+  file.path(interim_floor_speeches_path, "floor_speeches_with_measures.csv")
+)
