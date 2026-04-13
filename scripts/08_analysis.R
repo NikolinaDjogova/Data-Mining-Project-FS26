@@ -42,4 +42,14 @@ analysis_data <- analysis_data |>
     avg_sentence_length = word_count / sentence_count
   )
 
+# Flesch-Kincaid Grade Level
+fk_scores <- quanteda.textstats::textstat_readability(
+  analysis_data$text,
+  measure = "Flesch.Kincaid"
+)
+
+analysis_data <- analysis_data |>
+  dplyr::mutate(
+    fk_grade = fk_scores$Flesch.Kincaid
+  )
 
