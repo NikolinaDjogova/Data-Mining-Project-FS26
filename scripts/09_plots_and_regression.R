@@ -138,3 +138,37 @@ plot_word_count <- ggplot(wordcount_by_year, aes(x = year, y = avg_word_count)) 
     caption = "Ribbon shows the 25th–7w5th percentile range"
   ) +
   project_theme()
+
+
+# Saving plots 
+ggsave(
+  filename = file.path(output_figures_path, "09_num_speeches_per_year.png"),
+  plot = plot_speeches,
+  width = 9,
+  height = 5.5,
+  dpi = 300
+)
+
+ggsave(
+  filename = file.path(output_figures_path, "09_avg_fk_by_year.png"),
+  plot = plot_fk,
+  width = 9,
+  height = 5.5,
+  dpi = 300
+)
+
+ggsave(
+  filename = file.path(output_figures_path, "09_avg_sentence_length_by_year.png"),
+  plot = plot_sentence_length,
+  width = 9,
+  height = 5.5,
+  dpi = 300
+)
+
+ggsave(
+  filename = file.path(output_figures_path, "09_avg_word_count_by_year.png"),
+  plot = plot_word_count,
+  width = 9,
+  height = 5.5,
+  dpi = 300
+)
