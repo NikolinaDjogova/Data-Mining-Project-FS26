@@ -39,4 +39,4 @@ I am including the exact prompts I used while working on this project.
 21. I'm not sure what i should clean out in the final dataset combined.
 22. I'm starting with the linguistic complexity analysis now. What packages should I load? Which one was the one with Flesch-Kincaid text?
 23. I'll run Flesch Kincaid test, sentence length, what else?? Not too complicated
-24. 
+24. I can't figure out how to now do the summaries by each year so i can test the difference later.
