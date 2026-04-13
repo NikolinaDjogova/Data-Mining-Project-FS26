@@ -178,3 +178,26 @@ model_fk <- lm(fk_grade ~ year, data = analysis_data)
 model_sentence_length <- lm(avg_sentence_length ~ year, data = analysis_data)
 model_word_count <- lm(word_count ~ year, data = analysis_data)
 
+# Extracting coefficients
+model_coefficients <- dplyr::bind_rows(
+  bDroom::tidy(model_fk) |>
+    dplyr::mutate(model = "flesch_kincaid"),
+  broom::tidy(model_sentence_length) |>
+    dplyr::mutate(model = "sentence_length"),
+  broom::tidy(model_word_count) |>
+    dplyr::mutate(model = "word_count")
+)
+
+# Extracting model fit statistics
+model_fit <- dplyr::bind_rows(
+  broom::glance(model_fk) |>
+    dplyr::mutate(model = "flesch_kincaid"),
+  broom::glance(model_sentence_length) |>
+    dplyr::mutate(model = "sentence_length"),
+  broom::glance(model_word_count) |>
+    dplyr::mutate(model = "word_count")
+)
+
+
+
+
