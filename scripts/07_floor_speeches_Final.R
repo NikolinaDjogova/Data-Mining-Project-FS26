@@ -42,3 +42,15 @@ analysis_data <- floor_speeches_clean |>
     !zero_word,
     !short_text
   )
+
+# Saving cleaned full dataset
+readr::write_csv(
+  floor_speeches_clean,
+  file.path(interim_floor_speeches_path, "floor_speeches_cleaned.csv")
+)
+
+# Saving analysiws-ready dataset
+readr::write_csv(
+  analysis_data,
+  file.path(interim_floor_speeches_path, "floor_speeches_analysis_ready.csv")
+)
