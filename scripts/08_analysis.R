@@ -127,4 +127,15 @@ complexity_by_year <- analysis_data |>
 yearly_summary <- speeches_per_year |>
   dplyr::left_join(complexity_by_year, by = "year")
 
-
+# Speech length cat distribution by year
+speech_type_distribution <- analysis_data |>
+  dplyr::group_by(year, speech_type) |>
+  dplyr::summarise(
+    n = dplyr::n(),
+    .groups = "drop"
+  ) |>
+  dplyr::group_by(year) |>
+  dplyr::mutate(
+    proportion = n / sum(n)
+  ) |>
+  dplyr::ungroup()
