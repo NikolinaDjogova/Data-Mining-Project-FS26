@@ -198,6 +198,17 @@ model_fit <- dplyr::bind_rows(
     dplyr::mutate(model = "word_count")
 )
 
+readr::write_csv(
+  model_coefficients,
+  file.path(output_tables_path, "09_model_coefficients.csv")
+)
+
+readr::write_csv(
+  model_fit,
+  file.path(output_tables_path, "09_model_fit.csv")
+)
+
+
 
 
 
