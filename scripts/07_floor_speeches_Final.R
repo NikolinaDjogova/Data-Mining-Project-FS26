@@ -84,3 +84,7 @@ readr::write_csv(
   checks,
   file.path(output_checks_path, "07_cleaning_checks.csv")
 )
+
+# Quick validation
+analysis_data |>
+  dplyr::count(year)
