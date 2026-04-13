@@ -12,3 +12,14 @@ floor_speeches <- readr::read_csv(
   show_col_types = FALSE
 )
  
+# Loading packages
+library(dplyr)
+library(stringr)
+library(lubridate)
+library(ggplot2)
+install.packages("quanteda")
+library(quanteda)
+install.packages("quanteda.textstats")
+library(quanteda.textstats)
+library(broom)
+
