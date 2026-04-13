@@ -36,4 +36,5 @@ I am including the exact prompts I used while working on this project.
 18. My script is still running way tooo long, can i add progress messages or checkpoints so I can see where it is and make sure it's still working??
 19. I want to make sure my script is reproducible before i push it to github. What should I remove, what should I keep, and what would make it look cleaner?
 20. Here are my scripts 05 and 05b. I'm now working on 06 combining both together. How do i combine them together and keep the same structure??
-21. 
+21. I'm not sure what i should clean out in the final dataset combined.
+22. 
