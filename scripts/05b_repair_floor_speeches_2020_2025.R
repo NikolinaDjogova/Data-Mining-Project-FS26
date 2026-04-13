@@ -29,3 +29,55 @@ granule_chunks_recent <- split(
   kept_granules_recent,
   ceiling(seq_len(nrow(kept_granules_recent)) / chunk_size)
 )
+
+# Text collection for missing years 
+ ### I'm reusing the same code just adjusting the years 
+message("Starting chunked text collection for 2020-2025")
+
+for (i in seq_along(granule_chunks_recent)) {
+  
+  output_file <- file.path(
+    interim_floor_speeches_path,
+    paste0("floor_speeches_recent_chunk_", i, ".csv")
+  )
+  
+  if (file.exists(output_file)) {
+    message("Skipping existing recent chunk ", i)
+    next
+  }
+  
+  message("Processing recent chunk ", i, " of ", length(granule_chunks_recent))
+  
+  chunk_data <- granule_chunks_recent[[i]]
+  
+  chunk_result <- chunk_data |>
+    dplyr::transmute(
+      date = as.Date(dateIssued),
+      package_id,
+      granule_id = granuleId,
+      title,
+      type = granuleClass,
+      text = purrr::map_chr(
+        seq_along(granuleLink),
+        function(j) {
+          message("  Granule ", j, " of ", nrow(chunk_data), " in recent chunk ", i)
+          Sys.sleep(0.2)
+          get_granule_text_wrapper(granuleLink[j], api_key)
+        }
+      )
+    ) |>
+    dplyr::mutate(
+      word_count = stringr::str_count(text, "\\S+"),
+      text_missing = is.na(text),
+      short_text = word_count < 50
+    ) |>
+    dplyr::distinct(granule_id, .keep_all = TRUE) |>
+    dplyr::arrange(date, granule_id)
+  
+  readr::write_csv(
+    chunk_result,
+    output_file
+  )
+}
+
+message("Finished chunked text collection for 2020-2025")
