@@ -179,6 +179,12 @@ correlation_summary <- tibble::tibble(
   )
 )
 
+# Combined yearly summary 
+yearly_summary <- speeches_per_year |>
+  dplyr::left_join(fk_by_year, by = "year") |>
+  dplyr::left_join(sentence_complexity_by_year, by = "year") |>
+  dplyr::left_join(wordcount_by_year, by = "year")
+
 # Saving output tables 
 readr::write_csv(
   overall_summary,
