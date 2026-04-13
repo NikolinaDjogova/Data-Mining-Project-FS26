@@ -8,3 +8,6 @@ if (api_key == "") {
   stop("The key is missing from the environment")
 }
 
+# Ensuring output folders exist
+dir.create(raw_congressional_record_path, recursive = TRUE, showWarnings = FALSE)
+dir.create(interim_floor_speeches_path, recursive = TRUE, showWarnings = FALSE)
