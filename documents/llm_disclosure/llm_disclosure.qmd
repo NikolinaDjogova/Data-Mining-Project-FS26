@@ -42,3 +42,4 @@ I am including the exact prompts I used while working on this project.
 24. I can't figure out how to now do the summaries by each year so i can test the difference later.
 25. I'm confused, not sure how to run the flesch kincaid test by year.
 26. Whats wrong with my table?? Why do columns keep repeating?
+27. I need to do the plots now. I want all of them to have a consistent theme, help me write the code for it.
