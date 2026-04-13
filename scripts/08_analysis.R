@@ -23,3 +23,11 @@ install.packages("quanteda.textstats")
 library(quanteda.textstats)
 library(broom)
 
+# Basic type checks
+analysis_data <- analysis_data |>
+  dplyr::mutate(
+    date = as.Date(date),
+    year = lubridate::year(date),
+    word_count = as.numeric(word_count),
+    text = stringr::str_squish(text)
+  )
