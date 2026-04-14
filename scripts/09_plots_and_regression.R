@@ -1,18 +1,21 @@
 rm(list = ls())
 
 source(here::here("scripts", "00_setup.R"))
+source(here::here("scripts", "reusables.R"))
 
 dir.create(output_tables_path, recursive = TRUE, showWarnings = FALSE)
 dir.create(output_figures_path, recursive = TRUE, showWarnings = FALSE)
+dir.create(output_checks_path, recursive = TRUE, showWarnings = FALSE)
 
 library(dplyr)
 library(readr)
 library(ggplot2)
 library(broom)
+library(scales)
 
 # Loading datasets from the last script
 analysis_data <- readr::read_csv(
-  file.path(interim_floor_speeches_path, "floor_speeches_with_measures.csv"),
+  file.path(data_processes_path, "floor_speeches_with_measures.csv"),
   show_col_types = FALSE
 )
 
@@ -36,8 +39,18 @@ wordcount_by_year <- readr::read_csv(
   show_col_types = FALSE
 )
 
-yearly_summary <- readr::read_csv(
-  file.path(output_tables_path, "08_yearly_summary.csv"),
+distribution_by_year <- readr::read_csv(
+  file.path(output_tables_path, "08_distribution_by_year.csv"),
+  show_col_types = FALSE
+)
+
+period_summary <- readr::read_csv(
+  file.path(output_tables_path, "08_period_summary.csv"),
+  show_col_types = FALSE
+)
+
+speech_type_distribution <- readr::read_csv(
+  file.path(output_tables_path, "08_speech_type_distribution.csv"),
   show_col_types = FALSE
 )
 
@@ -208,6 +221,8 @@ readr::write_csv(
   file.path(output_tables_path, "09_model_fit.csv")
 )
 
+print(model_coefficients |> dplyr::filter(term == "year"))
+print(model_fit |> dplyr::select(model, r.squared, adj.r.squared, sigma, statistic, p.value))
 
 
 
