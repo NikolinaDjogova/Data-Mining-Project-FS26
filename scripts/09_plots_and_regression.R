@@ -3,14 +3,12 @@ rm(list = ls())
 source(here::here("scripts", "00_setup.R"))
 source(here::here("scripts", "reusables.R"))
 
-dir.create(output_tables_path, recursive = TRUE, showWarnings = FALSE)
 dir.create(output_figures_path, recursive = TRUE, showWarnings = FALSE)
 dir.create(output_checks_path, recursive = TRUE, showWarnings = FALSE)
 
 library(dplyr)
 library(readr)
 library(ggplot2)
-library(broom)
 library(scales)
 
 # Loading datasets from the last script
@@ -44,16 +42,6 @@ distribution_by_year <- readr::read_csv(
   show_col_types = FALSE
 )
 
-period_summary <- readr::read_csv(
-  file.path(output_tables_path, "08_period_summary.csv"),
-  show_col_types = FALSE
-)
-
-speech_type_distribution <- readr::read_csv(
-  file.path(output_tables_path, "08_speech_type_distribution.csv"),
-  show_col_types = FALSE
-)
-
 # Some basic checks 
 analysis_data <- analysis_data |>
   dplyr::mutate(
@@ -69,57 +57,77 @@ analysis_data <- analysis_data |>
     ),
     period = factor(period, levels = c("2010-2014", "2015-2019", "2020-2025"))
 
-###Plots 
-# Creating my aesthetic theme for all plots 
+###Plots
 
-project_theme <- function() {
-  theme_minimal(base_size = 12) +
-    theme(
-      plot.title = element_text(face = "bold", size = 15, hjust = 0),
-      plot.subtitle = element_text(size = 11, hjust = 0),
-      plot.caption = element_text(size = 9, hjust = 1, color = "gray40"),
-      axis.title = element_text(face = "bold"),
-      axis.text = element_text(color = "gray20"),
-      panel.grid.minor = element_blank(),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(linewidth = 0.3, color = "gray85"),
-      plot.margin = margin(12, 16, 12, 12)
-    )
-}
+# Shared x-axis formatting for yearly plots
+year_scale <- scale_x_continuous(
+  breaks = c(2010, 2015, 2020, 2025),
+  expand = expansion(mult = c(0.01, 0.03))
+)
 
 # Number of speeches over time 
 plot_speeches <- ggplot(speeches_per_year, aes(x = year, y = num_speeches)) +
-  geom_area(alpha = 0.30) +
-  geom_line(linewidth = 1) +
-  geom_point(size = 2) +
-  scale_x_continuous(breaks = seq(min(speeches_per_year$year), max(speeches_per_year$year), by = 1)) +
+  geom_area(fill = blue_mid, alpha = 0.55) +
+  geom_line(color = blue_dark, linewidth = 1) +
+  geom_point(color = blue_dark, size = 2) +
+  scale_x_continuous(
+    breaks = c(2010, 2015, 2020, 2025),
+    expand = expansion(mult = c(0.01, 0.03))
+  )+
+  scale_y_continuous(labels = scales::comma) +
   labs(
     title = "Number of House Floor Speeches per Year",
     subtitle = "Analysis-ready speeches, 2010–2025",
     x = "Year",
     y = "Number of speeches",
-    caption = "Source: U.S. Congressional Record"
+    caption = "Source: U.S. Congressional Record via GovInfo API"
   ) +
   project_theme()
+plot_speeches
 
 # Average Flesch-Kincaid grade level over time 
 plot_fk <- ggplot(fk_by_year, aes(x = year, y = avg_fk_grade)) +
   geom_ribbon(
     aes(ymin = p25_fk_grade, ymax = p75_fk_grade),
-    alpha = 0.18
+    fill = blue_light,
+    alpha = 0.35
   ) +
-  geom_line(linewidth = 1) +
-  geom_point(size = 2) +
-  scale_x_continuous(breaks = seq(min(fk_by_year$year), max(fk_by_year$year), by = 1)) +
+  geom_line(color = blue_dark, linewidth = 1.1) +
+  geom_point(color = blue_dark, size = 2.2) +
+  scale_x_continuous(
+    breaks = c(2010, 2015, 2020, 2025),
+    expand = expansion(mult = c(0.01, 0.03))
+  ) +
   labs(
     title = "Average Flesch-Kincaid Grade Level by Year",
-    subtitle = "Higher values indicate more difficult or more structurally demanding texts",
-    x = "Year",
-    y = "Average Flesch-Kincaid Grade Level",
+    subtitle = "Higher values indicate more structurally demanding texts",
+    x = NULL,
+    y = "Flesch-Kincaid grade level",
     caption = "Ribbon shows the 25th–75th percentile range"
   ) +
   project_theme()
-plot_fk
+
+# Distributional change in fk over time
+plot_fk_distribution <- ggplot(distribution_by_year, aes(x = year)) +
+  geom_ribbon(
+    aes(ymin = fk_p25, ymax = fk_p75),
+    fill = blue_fill,
+    alpha = 0.7
+  ) +
+  geom_line(aes(y = fk_p50), color = blue_dark, linewidth = 1.1) +
+  geom_line(aes(y = fk_p90), color = blue_mid, linetype = "dashed", linewidth = 0.8) +
+  geom_line(aes(y = fk_p10), color = blue_mid, linetype = "dashed", linewidth = 0.8) +
+  scale_x_continuous(
+    breaks = seq(min(distribution_by_year$year), max(distribution_by_year$year), by = 1)
+  ) +
+  labs(
+    title = "Distributional Change in Flesch-Kincaid Scores Over Time",
+    subtitle = "Median and upper/lower quantiles show how readability shifted across the distribution",
+    x = "Year",
+    y = "Flesch-Kincaid Grade Level",
+    caption = "Ribbon shows interquartile range; dashed lines show 10th and 90th percentiles"
+  ) +
+  project_theme()
 
 # Average sentence length over time 
 plot_sentence_length <- ggplot(sentence_complexity_by_year, aes(x = year, y = avg_sentence_length)) +
@@ -191,44 +199,6 @@ ggsave(
   height = 5.5,
   dpi = 300
 )
-
-# Regressions 
-model_fk <- lm(fk_grade ~ year, data = analysis_data)
-model_sentence_length <- lm(avg_sentence_length ~ year, data = analysis_data)
-model_word_count <- lm(word_count ~ year, data = analysis_data)
-
-# Extracting coefficients
-model_coefficients <- dplyr::bind_rows(
-  bDroom::tidy(model_fk) |>
-    dplyr::mutate(model = "flesch_kincaid"),
-  broom::tidy(model_sentence_length) |>
-    dplyr::mutate(model = "sentence_length"),
-  broom::tidy(model_word_count) |>
-    dplyr::mutate(model = "word_count")
-)
-
-# Extracting model fit statistics
-model_fit <- dplyr::bind_rows(
-  broom::glance(model_fk) |>
-    dplyr::mutate(model = "flesch_kincaid"),
-  broom::glance(model_sentence_length) |>
-    dplyr::mutate(model = "sentence_length"),
-  broom::glance(model_word_count) |>
-    dplyr::mutate(model = "word_count")
-)
-
-readr::write_csv(
-  model_coefficients,
-  file.path(output_tables_path, "09_model_coefficients.csv")
-)
-
-readr::write_csv(
-  model_fit,
-  file.path(output_tables_path, "09_model_fit.csv")
-)
-
-print(model_coefficients |> dplyr::filter(term == "year"))
-print(model_fit |> dplyr::select(model, r.squared, adj.r.squared, sigma, statistic, p.value))
 
 
 
