@@ -3,7 +3,7 @@ rm(list = ls())
 
 # Loading project setup
 source(here::here("scripts", "00_setup.R"))
-source(here::here("scripts", "functions_congressional_record.R"))
+source(here::here("scripts", "reusables.R"))
 
 # Getting the API key
 api_key <- Sys.getenv("GOVINFO_API_KEY")
@@ -18,27 +18,8 @@ package_ids <- c(
   "CREC-2026-02-13"
 )
 
-# Creating a list of precedural titles 
-excluded_titles <- c(
-  "House of Representatives",
-  "PRAYER",
-  "THE JOURNAL",
-  "PLEDGE OF ALLEGIANCE",
-  "ADJOURNMENT",
-  "RECESS",
-  "AFTER RECESS",
-  "MESSAGES FROM THE PRESIDENT",
-  "EXECUTIVE COMMUNICATIONS, ETC.",
-  "REPORTS OF COMMITTEES ON PUBLIC BILLS AND RESOLUTIONS",
-  "PUBLIC BILLS AND RESOLUTIONS",
-  "ADDITIONAL SPONSORS",
-  "DISCHARGE PETITIONS",
-  "DISCHARGE PETITIONS-- ADDITIONS AND WITHDRAWALS"
-)
-  ##These are House granules that are not likely to contain substantive speeches for my project 
-
 # Collecting all House granules from selected packages
-  ## map_dfr runs the hekper function for each package ID and combines the results into a single data frame
+  ## map_dfr runs the helper function for each package ID and combines the results into a single data frame
 all_house_granules <- purrr::map_dfr(
   package_ids, 
   ~ get_house_granules(.x, api_key)
@@ -93,5 +74,3 @@ readr::write_csv(
   checks, 
   file.path(output_checks_path, "04_floor_speeches_checks.csv")
 )
-
-nrow(kept_granules)
