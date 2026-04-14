@@ -141,24 +141,24 @@ plot_sentence_length <- ggplot(sentence_complexity_by_year, aes(x = year, y = av
 
 plot_sentence_length
 
-# Average word count over time
-plot_word_count <- ggplot(wordcount_by_year, aes(x = year, y = avg_word_count)) +
-  geom_ribbon(
-    aes(ymin = p25_word_count, ymax = p75_word_count),
-    alpha = 0.18
+# Word count distribution by period
+plot_word_count_period <- ggplot(analysis_data, aes(x = period, y = word_count)) +
+  geom_boxplot(
+    fill = blue_mid,
+    alpha = 0.7,
+    outlier.alpha = 0.12,
+    color = blue_dark
   ) +
-  geom_line(linewidth = 1) +
-  geom_point(size = 2) +
-  scale_x_continuous(breaks = seq(min(wordcount_by_year$year), max(wordcount_by_year$year), by = 1)) +
+  scale_y_continuous(labels = scales::comma) +
   labs(
-    title = "Average Word Count by Year",
-    subtitle = "Supporting indicator of structural variation",
-    x = "Year",
-    y = "Average word count",
-    caption = "Ribbon shows the 25th–7w5th percentile range"
+    title = "Distribution of Speech Length by Period",
+    subtitle = "Word count remains highly skewed across all periods",
+    x = NULL,
+    y = "Word count",
+    caption = "Boxplots summarize median, quartiles, and outliers"
   ) +
   project_theme()
-
+plot_word_count_period
 
 # Saving plots 
 ggsave(
@@ -178,6 +178,14 @@ ggsave(
 )
 
 ggsave(
+  filename = file.path(output_figures_path, "09_fk_distribution_by_year.png"),
+  plot = plot_fk_distribution,
+  width = 9,
+  height = 5.5,
+  dpi = 300
+)
+
+ggsave(
   filename = file.path(output_figures_path, "09_avg_sentence_length_by_year.png"),
   plot = plot_sentence_length,
   width = 9,
@@ -186,8 +194,8 @@ ggsave(
 )
 
 ggsave(
-  filename = file.path(output_figures_path, "09_avg_word_count_by_year.png"),
-  plot = plot_word_count,
+  filename = file.path(output_figures_path, "09_word_count_by_period.png"),
+  plot = plot_word_count_period,
   width = 9,
   height = 5.5,
   dpi = 300
