@@ -14,7 +14,7 @@ The goal of this project is to build a reproducible data pipeline in R to collec
 
 ## Research Question
 
-Do members of the U.S. House of Representatives use less linguistically complex language in more strategic forms of floor speech than in regular floor speech, and has linguistic complexity in House speech changed over time?
+Has linguistic complexity in U.S. House floor speeches changed over time between 2010 and 2025?
 
 ## Data Source
 
@@ -25,10 +25,10 @@ Unit of analysis: individual speech
 
 ## Measures 
 
-Flesch-Kincaid readability
-average sentence length
-average word length
-lexical diversity measures where available in the scripts
+- Flesch-Kincaid readability
+- Average sentence length
+- Average word length
+- Additional text-based measures where implemented in the scripts 
 
 ## Repository Structure
 
@@ -44,20 +44,19 @@ README.md         project description
 
 To reproduce this project:
 
-Clone the repository
-Add required API credentials to .env or .Renviron
-Install the required R packages
-Run the scripts in the project workflow order
+- Clone the repository  
+- Add API credentials to `.Renviron`  
+- Install required R packages  
+- Run scripts in sequential order 
 
 All data files used for analysis are generated programmatically by the scripts. Raw data and credentials are not stored in the repository.
 
-
 ## Data Management and Security
 
-raw data is not pushed to GitHub
-processed data is not pushed to GitHub
-API keys are stored outside the repository
-.gitignore excludes sensitive files and generated outputs
+- Raw data is not pushed to GitHub
+- Processed data is not pushed to GitHub
+- API keys are stored outside the repository
+- .gitignore excludes sensitive files and generated outputs
 
 ## Limitations
-This project focuses on House speech available through the selected data pipeline. Linguistic complexity measures capture only certain aspects of political communication and do not directly measure democratic quality, intent, or persuasion. Where speech types differ, these differences may also reflect institutional format rather than audience adaptation alone.
+This project focuses on House floor speech collected through the GovInfo API. Linguistic complexity measures capture only certain dimensions of political communication and do not directly measure meaning, persuasion, or intent. Observed differences over time may also reflect institutional factors, topic variation, or data limitations rather than purely changes in communication strategy.
