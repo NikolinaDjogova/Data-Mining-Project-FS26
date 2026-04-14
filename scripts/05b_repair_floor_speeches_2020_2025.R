@@ -12,6 +12,16 @@ if (api_key == "") {
 dir.create(raw_congressional_record_path, recursive = TRUE, showWarnings = FALSE)
 dir.create(interim_floor_speeches_path, recursive = TRUE, showWarnings = FALSE)
 
+# Checking that the required raw metadata file exists
+raw_recent_file <- file.path(
+  raw_congressional_record_path,
+  "house_granules_2020_2025_raw.csv"
+)
+
+if (!file.exists(raw_recent_file)) {
+  stop("Required raw metadata file for 2020-2025 does not exist")
+}
+
 # Loading the already-saved raw metadata for 2020-2025
 all_house_granules_recent <- readr::read_csv(
   file.path(raw_congressional_record_path, "house_granules_2020_2025_raw.csv"),
