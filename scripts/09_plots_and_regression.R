@@ -56,6 +56,7 @@ analysis_data <- analysis_data |>
       TRUE ~ NA_character_
     ),
     period = factor(period, levels = c("2010-2014", "2015-2019", "2020-2025"))
+)
 
 ###Plots
 
@@ -100,6 +101,7 @@ plot_fk <- ggplot(fk_by_year, aes(x = year, y = avg_fk_grade)) +
     caption = "Ribbon shows the 25th–75th percentile range"
   ) +
   project_theme()
+plot_fk
 
 # Distributional change in fk over time
 plot_fk_distribution <- ggplot(distribution_by_year, aes(x = year)) +
@@ -120,6 +122,7 @@ plot_fk_distribution <- ggplot(distribution_by_year, aes(x = year)) +
     caption = "Ribbon shows interquartile range; dashed lines show 10th and 90th percentiles"
   ) +
   project_theme()
+plot_fk_distribution
 
 # Average sentence length over time 
 plot_sentence_length <- ggplot(sentence_complexity_by_year, aes(x = year, y = avg_sentence_length)) +
@@ -200,7 +203,3 @@ ggsave(
   height = 5.5,
   dpi = 300
 )
-
-
-
-
