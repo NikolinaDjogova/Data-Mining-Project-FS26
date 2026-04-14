@@ -3,6 +3,7 @@ rm(list = ls())
 
 # Loading project setup 
 source(here::here("scripts", "00_setup.R"))
+source(here::here("scripts", "reusables.R"))
 
 # Acquired the API key, credentials are being kept in the R environment.
 
@@ -74,28 +75,6 @@ example_json <- jsonlite::fromJSON(
 str(example_json)
  ##the summary includes metadata, and doesn't give me the actual text yet. 
 
-# Extracting the text link
-text_url <- paste0(example_json$download$txtLink, "?api_key=", api_key)
-text_response <- httr::GET(text_url)
-httr::status_code(text_response)
-granule_text <- httr::content(text_response, as = "text", encoding = "UTF-8")
-granule_text
- ##I found the actual text, but it's not in a very structured format.
-
-# Parsing the returned html
-granule_html <- xml2::read_html(granule_text)
-
-# Extraxting the main preformatted text block
-clean_text <- granule_html |>
-  rvest::html_element("pre") |>
-  rvest::html_text()
-
-clean_text
-
-# Inspecting the titles 
-house_granules$title
-## The titles are not very informative.
-
 #Inspecting one substantive House granule 
 example_url <- paste0(house_granules$granuleLink[9], "?api_key=", api_key)
 example_response <- httr::GET(example_url)
@@ -105,19 +84,10 @@ example_json <- jsonlite::fromJSON(
 str(example_json)
  ##Finally, I see real progress, this granule is a speech, includes members, speaker, discussion window, title..
 
-# Extracting the text link
-text_url <- paste0(example_json$download$txtLink, "?api_key=", api_key)
-text_response <- httr::GET(text_url)
-httr::status_code(text_response)
+# Using the reusable function to retrieve clean text
+clean_text <- get_granule_text(house_granules$granuleLink[9], api_key)
 
-# Parsing the returned text 
-granule_text <- httr::content(text_response, as = "text", encoding = "UTF-8")
-granule_html <- xml2::read_html(granule_text)
-clean_text <- granule_html |>
-  rvest::html_element("pre") |>
-  rvest::html_text()
 clean_text
- ##The full pipeline works. A useful House granule does have substantial legislative debate text.
 
 # Creating a small df from one speech for testing
 example_granule_df <- tibble::tibble(
@@ -137,29 +107,8 @@ readr::write_csv(
   example_granule_df, 
   here::here("output", "checks", "example_house_granule.csv")
   )
- 
-# Function to retrieve text from one granule
-get_granule_text <- function(granule_link, api_key) {
-  granule_url <- paste0(granule_link, "?api_key=", api_key)
-  granule_response <- httr::GET(granule_url)
-  granule_json <- jsonlite::fromJSON(
-    httr::content(granule_response, as = "text", encoding = "UTF-8")
-  )
-  text_url <- paste0(granule_json$download$txtLink, "?api_key=", api_key)
-  text_response <- httr::GET(text_url)
-  granule_text <- httr::content(text_response, as = "text", encoding = "UTF-8")
-  granule_html <- xml2::read_html(granule_text)
-  clean_text <- granule_html |>
-    rvest::html_element("pre") |>
-    rvest::html_text()
-  return(clean_text)
-}
 
-# Testing the function
-example_text <- get_granule_text(house_granules$granuleLink[9], api_key)
-example_text
-
-# Testing the function on a few granules to make sure it works 
+# Testing the reusable text function on a few granules to make sure it works 
 test_text_1 <- get_granule_text(house_granules$granuleLink[8], api_key)
 test_text_2 <- get_granule_text(house_granules$granuleLink[9], api_key)
 test_text_3 <- get_granule_text(house_granules$granuleLink[12], api_key)
