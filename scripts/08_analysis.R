@@ -198,6 +198,35 @@ distribution_by_year <- analysis_data |>
     .groups = "drop"
   )
 
+# comparison by period 
+analysis_data <- analysis_data |>
+  dplyr::mutate(
+    period = dplyr::case_when(
+      year >= 2010 & year <= 2014 ~ "2010-2014",
+      year >= 2015 & year <= 2019 ~ "2015-2019",
+      year >= 2020 & year <= 2025 ~ "2020-2025",
+      TRUE ~ NA_character_
+    )
+  )
+
+period_summary <- analysis_data |>
+  dplyr::group_by(period) |>
+  dplyr::summarise(
+    num_speeches = dplyr::n(),
+    avg_fk_grade = mean(fk_grade, na.rm = TRUE),
+    median_fk_grade = median(fk_grade, na.rm = TRUE),
+    sd_fk_grade = sd(fk_grade, na.rm = TRUE),
+    
+    avg_sentence_length = mean(avg_sentence_length, na.rm = TRUE),
+    median_sentence_length = median(avg_sentence_length, na.rm = TRUE),
+    sd_sentence_length = sd(avg_sentence_length, na.rm = TRUE),
+    
+    avg_word_count = mean(word_count, na.rm = TRUE),
+    median_word_count = median(word_count, na.rm = TRUE),
+    sd_word_count = sd(word_count, na.rm = TRUE),
+    .groups = "drop"
+  )
+
   # checks 
   checks <- tibble::tibble(
     metric = c(
