@@ -227,6 +227,19 @@ period_summary <- analysis_data |>
     .groups = "drop"
   )
 
+# Speech type composition over time
+speech_type_distribution <- analysis_data |>
+  dplyr::group_by(year, speech_type) |>
+  dplyr::summarise(
+    n = dplyr::n(),
+    .groups = "drop"
+  ) |>
+  dplyr::group_by(year) |>
+  dplyr::mutate(
+    proportion = n / sum(n)
+  ) |>
+  dplyr::ungroup()
+
   # checks 
   checks <- tibble::tibble(
     metric = c(
@@ -247,6 +260,7 @@ period_summary <- analysis_data |>
     )
   )
   
+
   readr::write_csv(
     checks,
     file.path(output_checks_path, "08_measurement_checks.csv")
