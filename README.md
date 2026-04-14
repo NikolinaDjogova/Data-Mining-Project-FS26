@@ -1,82 +1,63 @@
-#Data Mining Project Template
+#Linguistic Complexity in U.S House Floor Speech Over Time
 
-This repository contains the code for a small data mining project developed as part of the course:
+This repository contains code and documentation for a data mining project developed as part of the course:
 
 **Data Access and Data Mining for Social Sciences**
 
 University of Lucerne
 
 Student Nikolina Djogova  
-Course: Data Mining for the Social Sciences using R
 Term: Spring 2026
 
 ## Project Goal
-
-The goal of this project is to collect and analyze data from an online source (API or web scraping) in order to answer a research question relevant to political or social science.
-
-The project should demonstrate:
-
-- Identification of a suitable data source
-- Automated data collection (API or scraping)
-- Data cleaning and preparation
-- Reproducible analysis
-
+The goal of this project is to build a reproducible data pipeline in R to collect, process, and analyze speech data from the U.S. House of Representatives.
 
 ## Research Question
 
-*(Replace with your own question)*
-
-Example:
-- How frequently do political speeches contain populist rhetoric?
-
+Do members of the U.S. House of Representatives use less linguistically complex language in more strategic forms of floor speech than in regular floor speech, and has linguistic complexity in House speech changed over time?
 
 ## Data Source
 
-Describe the data source here.
+Source: U.S. Congressional Record / GovInfo
+Access method: API requests (HTTP GET)
+Format: JSON / text
+Unit of analysis: individual speech
 
-Example:
+## Measures 
 
-- API: https://example-api.com
-- Documentation: https://example-api.com/docs
-- Access method: HTTP GET requests
-
+Flesch-Kincaid readability
+average sentence length
+average word length
+lexical diversity measures where available in the scripts
 
 ## Repository Structure
 
-/code     scripts used to collect/process data
-/data     output datasets (not tracked/pushed by git)
-README.md   project description
+scripts/          R scripts for data collection, cleaning, and analysis 
+data/raw/         raw downloaded data (not tracked by Git) 
+data/interim/     intermediate files (not tracked by Git) 
+data/processed/   processed datasets (not tracked by Git) 
+output/           figures, tables, logs, and checks (not tracked by Git) 
+README.md         project description
 
 
 ## Reproducibility
 
 To reproduce this project:
 
-1. Clone the repository
-2. Install required R packages
-3. Run the scripts in the `code/` folder
+Clone the repository
+Add required API credentials to .env or .Renviron
+Install the required R packages
+Run the scripts in the project workflow order
 
-All data should be generated automatically by the scripts.
-
-
-## Good Practices
-
-Please follow these guidelines:
-
-- Do **not upload raw datasets** to GitHub.
-- Store **API keys outside the repository** (e.g., environment variables).
-- Write scripts that run **from start to finish**.
-- Commit your work **frequently**.
-- Use **clear commit messages**.
-
-Example commit messages:
-added API request
-cleaned dataset structure
-added visualization
-fixed JSON parsing
+All data files used for analysis are generated programmatically by the scripts. Raw data and credentials are not stored in the repository.
 
 
-## Notes
+## Data Management and Security
 
-Large datasets should not be pushed to GitHub.  
-If necessary, provide instructions for downloading the data instead.
+raw data is not pushed to GitHub
+processed data is not pushed to GitHub
+API keys are stored outside the repository
+.gitignore excludes sensitive files and generated outputs
+
+## Limitations
+This project focuses on House speech available through the selected data pipeline. Linguistic complexity measures capture only certain aspects of political communication and do not directly measure democratic quality, intent, or persuasion. Where speech types differ, these differences may also reflect institutional format rather than audience adaptation alone.
