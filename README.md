@@ -34,17 +34,17 @@ between 2010 and 2025?
 
 ## Data Source
 
-Source: U.S. Congressional Record / GovInfo \
-Access method: API requests (HTTP GET) \
-Format: JSON / text \
+Source: U.S. Congressional Record / GovInfo\
+Access method: API requests (HTTP GET)\
+Format: JSON / text\
 Unit of analysis: individual speech
 
 ## Methodological Approach
 
-1\. Collect Congressional Record data via the GovInfo API \
-2. Extract and filter House-related speech content \
-3. Clean and preprocess text data \
-4. Construct measures of linguistic complexity \
+1\. Collect Congressional Record data via the GovInfo API\
+2. Extract and filter House-related speech content\
+3. Clean and preprocess text data\
+4. Construct measures of linguistic complexity\
 5. Analyze trends over time
 
 ## Measures
@@ -59,19 +59,19 @@ readability, structural variation, and speech length.
 
 ## Repository Structure
 
-scripts/ R scripts for data collection, cleaning, and analysis \
-data/raw/ raw downloaded data (not tracked by Git) \
+scripts/ R scripts for data collection, cleaning, and analysis\
+data/raw/ raw downloaded data (not tracked by Git)\
 data/interim/ intermediate files (not tracked by Git) data/processed/
 processed datasets (not tracked by Git) output/ figures, tables, logs,
-and checks (not tracked by Git) \
+and checks (not tracked by Git)\
 README.md project description
 
 ## Reproducibility
 
 To reproduce this project please run scripts in sequential order
-(starting from \`00_setup.R\`) \
+(starting from \`00_setup.R\`)\
 \
-All data used in the analysis is generated programmatically. \
+All data used in the analysis is generated programmatically.\
 \
 Raw data and API credentials are not stored in the repository.
 

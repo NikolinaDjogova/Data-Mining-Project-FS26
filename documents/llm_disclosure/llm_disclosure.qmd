@@ -14,7 +14,7 @@ execute:
   message: false
 ---
 
-I am including the exact prompts I used while working on this project.
+I am including the exact prompts I used while working on this project. I used the model Claude 4.6.
 
 1.  I'm working on a data mining project and I am attaching my outline. What code can I run to make sure that my API keys will never get pushed to Git? Explain
 2.  This is my 00_setup script. Evaluate it and tell me if i there's anything i need to get rid of or anything i can improve.
@@ -47,4 +47,4 @@ I am including the exact prompts I used while working on this project.
 29. This is my regression model, i'm not sure what to do next with it like how to actually extract the coefficients
 30. \*I sent it all my scripts one by one and asked: I'm ready to push this script, what are some edits I should make before finalizing it?
 31. I wrote the basic code for my scripts but I don't like how they look. Here's a color pallete i want to use, what are the \# codes??
-32. 
+32. How does this sound? Should I make dits? (I sent it my final project report)

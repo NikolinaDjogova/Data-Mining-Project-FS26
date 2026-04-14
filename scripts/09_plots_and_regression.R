@@ -165,7 +165,7 @@ plot_word_count_period
 
 # Saving plots 
 ggsave(
-  filename = file.path(output_figures_path, "09_num_speeches_per_year.png"),
+  filename = file.path(output_figures_path, "speeches_per_year.png"),
   plot = plot_speeches,
   width = 9,
   height = 5.5,
@@ -173,7 +173,7 @@ ggsave(
 )
 
 ggsave(
-  filename = file.path(output_figures_path, "09_avg_fk_by_year.png"),
+  filename = file.path(output_figures_path, "fk_grade_by_year.png"),
   plot = plot_fk,
   width = 9,
   height = 5.5,
@@ -181,7 +181,7 @@ ggsave(
 )
 
 ggsave(
-  filename = file.path(output_figures_path, "09_fk_distribution_by_year.png"),
+  filename = file.path(output_figures_path, "fk_distribution_by_year.png"),
   plot = plot_fk_distribution,
   width = 9,
   height = 5.5,
@@ -189,7 +189,7 @@ ggsave(
 )
 
 ggsave(
-  filename = file.path(output_figures_path, "09_avg_sentence_length_by_year.png"),
+  filename = file.path(output_figures_path, "sentence_length_by_year.png"),
   plot = plot_sentence_length,
   width = 9,
   height = 5.5,
@@ -197,7 +197,7 @@ ggsave(
 )
 
 ggsave(
-  filename = file.path(output_figures_path, "09_word_count_by_period.png"),
+  filename = file.path(output_figures_path, "word_count_by_period.png"),
   plot = plot_word_count_period,
   width = 9,
   height = 5.5,
