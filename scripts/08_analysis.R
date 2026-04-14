@@ -240,6 +240,41 @@ speech_type_distribution <- analysis_data |>
   ) |>
   dplyr::ungroup()
 
+# correlation among measures 
+correlation_summary <- tibble::tibble(
+  measure_pair = c(
+    "fk_grade_and_avg_sentence_length",
+    "fk_grade_and_word_count",
+    "avg_sentence_length_and_word_count"
+  ),
+  correlation = c(
+    cor(analysis_data$fk_grade, analysis_data$avg_sentence_length, use = "complete.obs"),
+    cor(analysis_data$fk_grade, analysis_data$word_count, use = "complete.obs"),
+    cor(analysis_data$avg_sentence_length, analysis_data$word_count, use = "complete.obs")
+  )
+)
+
+# Saving these tables 
+readr::write_csv(
+  distribution_by_year,
+  file.path(output_tables_path, "08_distribution_by_year.csv")
+)
+
+readr::write_csv(
+  period_summary,
+  file.path(output_tables_path, "08_period_summary.csv")
+)
+
+readr::write_csv(
+  speech_type_distribution,
+  file.path(output_tables_path, "08_speech_type_distribution.csv")
+)
+
+readr::write_csv(
+  correlation_summary,
+  file.path(output_tables_path, "08_correlation_summary.csv")
+)
+
   # checks 
   checks <- tibble::tibble(
     metric = c(
