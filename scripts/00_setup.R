@@ -1,6 +1,3 @@
-# Removing everything that's currently in my environment
-rm(list = ls())
-
 # Loading packages I might need 
 library(httr)
 library(jsonlite)
@@ -10,7 +7,7 @@ library(here)
 
 # Making sure that text is not automatically turned into factors
 options(stringsAsFactors = FALSE)
-# Reducting scientific notation in printed numbers
+# Reducing scientific notation in printed numbers
 options(scipen = 999)
 
 # Project paths 
