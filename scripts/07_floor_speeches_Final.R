@@ -1,9 +1,8 @@
 rm(list = ls())
 
 source(here::here("scripts", "00_setup.R"))
-source(here::here("scripts", "reusables.R"))
 
-dir.create(interim_floor_speeches_path, recursive = TRUE, showWarnings = FALSE)
+dir.create(data_processed_path, recursive = TRUE, showWarnings = FALSE)
 dir.create(output_checks_path, recursive = TRUE, showWarnings = FALSE)
 
 # Loading combined dataset 
@@ -49,10 +48,10 @@ readr::write_csv(
   file.path(interim_floor_speeches_path, "floor_speeches_cleaned.csv")
 )
 
-# Saving analysiws-ready dataset
+# Saving analysis-ready dataset
 readr::write_csv(
-  analysis_data,
-  file.path(interim_floor_speeches_path, "floor_speeches_analysis_ready.csv")
+  floor_speeches_clean,
+  file.path(data_processed_path, "floor_speeches_cleaned.csv")
 )
 
 # Creating checks table
