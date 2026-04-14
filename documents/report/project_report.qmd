@@ -1,5 +1,5 @@
 ---
-title: "Linguistic Complexity Across Institutional and Public-Facing Communication in the U.S. House of Representatives"
+title: "Linguistic Complexity in Legislative Speech: Analysis of U.S. House Floor debates, 2010-2025"
 author: "Nikolina Djogova"
 format:
   pdf:
@@ -16,114 +16,118 @@ execute:
 
 # Introduction
 
-Political communication plays a central role in shaping how information is conveyed, interpreted, and acted upon. In recent years, increasing attention is being given to how politicians communicate with broader audiences, particularly in context outside formal institutions. However, less attention has been paid to whether communication within institutional settings has also changed over time.
+Political communication is fundamental in shaping how information is delivered, understood, and ultimately used by audiences (Habermas 1984; Grimmer 2013; McNair 2017). Although much of the literature focuses on campaign rhetoric, media narratives, and social media discourse, far less attention has been given to how language operates within formal legislative settings. This gap is worth exploring, not only because legislative speech differs from the more performative communication typically studied, but also because it provides a uniquely consistent and structured record over time. In this sense, legislative speech reflects both institutional constraints and the strategic behavior of political actors.
 
-Legislative speech, such as that from the US Congressional record, represents a structured and consistent form of political communication. These speeches are produced within formal constraints and are intended to document legislative activity, yet they also serve as a medium through which political actors present arguments, frame issues, and signal positions.
+Members of Congress use floor speeches to do several things at once: participate in debate, signal positions, and communicate with broader audiences (Mayhew 1974; Grimmer 2013). That dual function makes legislative speech useful for studying language over time, since it sits somewhere between deliberation and performance.
 
-This project examines whether there have been measurable changes in the linguistic characteristics of House floor speech over time. In particular, it focuses on whether speech length and complexity show systematic variation across years. Understanding these patterns provides insight into whether broader shifts in political communication are reflected even within formal institutional contexts.
+This project analyzes whether linguistic complexity in House floor speeches has changed from 2010 to 2025, focusing on speech length, sentence structure, and readability. It asks whether institutional political language has become simpler, more complex, or remained stable, and what that reveals about broader shifts in political communication. I'll be upfront: this project was significantly more difficult than I anticipated, mostly for data reasons I'll explain below.
 
 ## Relevance
 
-This project is relevant for understanding how political communication evolves over time, particularly within formal institutional settings. While much of the existing research focuses on campaign messaging, media appearances, or social media communication, legislative speech remains an important but relatively underexplored domain.
+If legislative speech is getting simpler over time, that would suggest that broader media dynamics are shaping even formal institutional communication. If it is not, it implies that institutional settings may resist those pressures more than expected. This matters for how we understand the relationship between political communication and institutional context.
 
-Analyzing changes in speech patterns can provide insight into how politicians adapt their communication strategies in response to changing audiences, media environments, and political incentives. If legislative speech becomes simpler or more standardized over time, this may reflect broader shifts toward accessibility and persuasion in political communication.
-
-Additionally, this project demonstrates the value of computational methods for analyzing large collections of text. By applying automated data collection and text analysis techniques, it becomes possible to identify patterns that would not be observable through manual analysis. This approach aligns with the growing use of quantitative text analysis in political science and communication research (Grimmer and Stewart 2013; Gentzkow, Shapiro, and Taddy 2019).
-
-## Project Overview
-
-This project uses data from the U.S. Congressional Record to analyze speeches from the House of Representatives between 2010 and 2025. The data was collected programmatically using the GovInfo API and processed in R.
-
-The analysis focuses on descriptive measures of speech characteristics, including the number of speeches per year and the length of speeches measured by word count. These measures are used to examine trends over time and to assess whether there are systematic changes in how legislative speech is structured.
+Methodologically, the project demonstrates how data mining techniques can be used to analyze large-scale textual data. Using the GovInfo API, the analysis follows a reproducible workflow from data collection to measurement, consistent with the “text as data” approach (Grimmer and Stewart 2013; Gentzkow, Shapiro, and Taddy 2019).
 
 # Research Question and Expectations
 
-## Research Question
+The central research question of this project is whether members of the U.S. House of Representatives use less linguistically complex language over time in legislative speech.
 
-The central research question of this project is:
+The analysis is guided by three expectations. First, linguistic complexity in House floor speeches is expected to decrease over time. Second, the average length of speeches is expected to decline. Third, shorter speeches are expected to exhibit lower linguistic complexity than longer speeches.
 
-Do members of the U.S. House of Representatives use less linguistically complex language in public-facing communication than in floor speech, and has that gap widened over time?
+These expectations are grounded in broader research on political communication and media change. Existing scholarship suggests that political language often becomes more audience-oriented, particularly in environments characterized by increased competition for attention and broader publics (Prior 2007; Gentzkow, Shapiro, and Taddy 2019). It is therefore reasonable to expect that legislative language might also reflect simplification over time. At the same time, this remains an empirical question, as floor speech is produced within a formal institutional setting with its own communicative logic.
 
-## Hypotheses
+# Literature Context
 
-H1: Public-facing communication by House members is less linguistically complex than institutional floor speech.
+The electoral incentives framework (Mayhew 1974) is the foundation here. Members of Congress aren't just making policy — they're constantly engaged in visible, strategic communication shaped by the need to win elections and represent constituencies. Grimmer (2013) builds on this, showing that congressional communication is tightly linked to representational style and position-taking. Neither of these frameworks predicts simplification in legislative speech necessarily, but they do suggest that language use is strategic and responsive to context.
 
-H2: The gap in linguistic complexity between public-facing and institutional communication has widened over time.
+The simplification expectation comes more from work on broader communication change. Prior (2007) and Gentzkow, Shapiro, and Taddy (2019) argue that audience fragmentation and media competition push political actors toward increasingly accessible language. The question is whether those pressures reach into formal institutional settings or stop at the chamber door.
 
-H3: As an extension, one-minute floor speeches are less linguistically complex than full floor speeches and closer in complexity to public-facing communication.
-
-## Expectations
-
-Based on existing research on political communication, it is expected that speech patterns will show measurable variation over time. In particular, prior work suggests that political language often becomes more accessible as communication increasingly targets broader audiences (Grimmer 2013; Gentzkow, Shapiro, and Taddy 2019).
-
-Therefore, it is expected that more recent speeches may be shorter or less complex on average compared to earlier years. At the same time, variation across years is also expected due to differences in legislative activity, political context, and institutional dynamics.
-
-# Literature Review
-
-Research on political communication has long emphasized the importance of language in shaping political behavior and public understanding. Political actors use language not only to convey information but also to frame issues, construct narratives, and influence perception (Grimmer 2013).
-
-One key theme in this literature is the role of simplification in political communication. Politicians often adapt their language to make complex issues more accessible, particularly when addressing broader audiences. This tendency toward simplification is linked to the need to communicate effectively in increasingly competitive and media-driven environments. Legislative speech in particular plays a dual role: it both documents institutional activity and serves as a strategic form of communication directed at multiple audiences, including constituents, media, and other political actors (Grimmer 2013; Mayhew 1974).
-
-At the same time, institutional communication has traditionally been viewed as more formal and structured. Legislative speech, in particular, is often associated with procedural norms and technical language. However, recent research suggests that these distinctions may be evolving, as communication practices shift across different contexts. Classic theories of congressional behavior suggest that members of Congress engage in activities such as position-taking and credit-claiming in ways that are visible and understandable to the public (Mayhew 1974). This implies that even formal legislative speech may be shaped by considerations of audience and clarity, rather than purely institutional norms.
-
-More recent research has extended this perspective by examining how political language changes over time and across contexts. Studies of congressional speech have shown that linguistic patterns reflect both ideological positioning and strategic communication choices (Gentzkow, Shapiro, and Taddy 2019). At the same time, there is growing evidence that political communication has become more accessible and audience-oriented, particularly in response to changes in the media environment (Prior 2007).
-
-The development of computational text analysis has significantly expanded the ability to study political language at scale. Methods for analyzing large collections of text allow researchers to identify patterns in word use, structure, and complexity across time and contexts (Grimmer and Stewart 2013). These approaches have been widely applied in political science, including the analysis of legislative speech and policy communication (Gentzkow, Shapiro, and Taddy 2019).
-
-This project builds on these contributions by applying computational methods to a large corpus of legislative speech. By focusing on measurable features such as word count and speech distribution, it provides a data-driven perspective on how political communication may be changing within a formal institutional setting.
+Advances in computational text analysis make it possible to study these patterns at scale. The “text as data” framework provides tools for systematically analyzing large corpora, allowing researchers to identify trends in structure and readability over time (Grimmer and Stewart 2013).
 
 # Methdology
 
-## Definitions?
+The data comes from the U.S. Congressional Record, accessed through the GovInfo API. The pipeline follows a structured “text as data” approach. First, daily package-level metadata for 2010–2025 was collected using standardized API queries. Second, granule-level metadata was extracted, representing individual units of content such as speeches and procedural remarks. Third, granules were filtered to retain only House-related content, and full text was retrieved for each observation.
 
-## Data Sources
+The dataset was then cleaned to isolate substantive floor speeches. Because the Congressional Record includes procedural material, filtering was applied based on titles and metadata to remove clearly non-substantive entries. While imperfect, this significantly improves the quality of the dataset.
 
-## Data pipeline
+Text preprocessing included removing missing or extremely short entries and standardizing formatting. Each speech is treated as a unit of analysis. From the cleaned text, variables such as word count and sentence count were extracted and used to construct measures of linguistic complexity.
 
-### Data Collection
+The analysis uses three measures: word count, average sentence length, and Flesch-Kincaid grade level. Together, these capture different dimensions of complexity, including length, structure, and readability.
 
-### Data Storage
+## Data Pipeline Issues
 
-### Data Cleaning
+This is where things got more complicated than expected.
 
-## Measures
+The first issue was data reliability. In particular, speeches from 2020–2025 did not consistently save during initial runs, which meant I had to rerun parts of the pipeline multiple times to ensure completeness. This is a typical problem in automated data collection, where API responses can fail silently or inconsistently.
 
-### Linguistic Complexity Measures and WHY
+Second, the scale of the dataset created real computational constraints. Working with tens of thousands of speeches required chunked processing, which made the pipeline more robust but also harder to manage. Combining and validating outputs across hundreds or thousands of intermediate files added an extra layer of complexity.
 
-### Measurement considerations
+Third, filtering substantive speeches is inherently imperfect, as the Congressional Record does not provide a clear distinction between procedural and substantive content. Variation in formatting across years introduces some measurement error in sentence detection and readability calculations.
 
-## Analysis Strategy
+##Measures
 
-### Descriptive Analysis
+The analysis uses three primary measures of linguistic complexity: word count, average sentence length, and Flesch-Kincaid Grade Level. Word count captures the length of a speech and provides a baseline measure of informational content. Average sentence length is calculated as the number of words divided by the number of sentences and serves as a proxy for structural complexity.
 
-### Time Trends
+Flesch-Kincaid Grade Level is used as the primary readability measure. It estimates the level of education required to understand a text based on sentence length and word structure (Kincaid et al. 1975). This measure is widely used in computational text analysis due to its interpretability and scalability.
 
-### Regression
-
-## One-minute speeches extension
+Using multiple measures is important because linguistic complexity is multidimensional. Word count alone does not capture readability, and readability does not fully capture structural variation. Together, these measures provide a more comprehensive view of how speeches are constructed.
 
 # Results
 
-## Descriptive
+The final dataset consists of 127,953 House floor speeches between 2010 and 2025. Descriptive statistics indicate substantial variation in speech length and structure. The mean word count is 1,189.60, while the median is substantially lower at 186 words, indicating a highly skewed distribution with a small number of very long speeches. On average, speeches contain approximately 81.97 sentences, with an average sentence length of 13.10 words. The mean Flesch-Kincaid grade level is 12.95, with a median of 12.05, suggesting that most speeches cluster around a late high school to early college reading level.
 
-## Model
+Examining trends over time reveals that linguistic complexity does not decline as initially expected. Instead, readability slightly increases over the observed period. The average Flesch-Kincaid grade level rises from 11.79 in 2010 to 12.70 in 2025, with a peak of 13.50 in 2022. While there is some fluctuation across years, the overall pattern suggests stability with a mild upward trend rather than simplification.
 
-# Discussion
+Sentence structure follows a relatively stable pattern. Average sentence length begins at approximately 14.00 words per sentence in 2010 and ends at 12.74 in 2025, indicating only minor variation over time. This suggests that structural complexity at the sentence level remains consistent across the period.
 
-## Interpretation of results
+In contrast, speech length shows a clearer downward trend. The average word count declines from 1,492 words in 2010 to 824 words in 2025. Period-based comparisons reinforce this pattern: average word count decreases from 1,292 words in 2010–2014 to 1,060 words in 2020–2025. This indicates that speeches are becoming shorter over time, even as readability remains stable or slightly increases.
 
-## Implications
+Correlation analysis further clarifies the relationship between the different measures of complexity. The Flesch-Kincaid grade level is strongly correlated with average sentence length (r = 0.61), suggesting that longer sentences are a key driver of higher readability scores. In contrast, the relationship between word count and readability is very weak (r = 0.04), indicating that longer speeches are not necessarily more complex. Similarly, the correlation between word count and sentence length is minimal (r = 0.07), reinforcing the idea that speech length and linguistic complexity capture distinct dimensions of communication.
+
+## Discussion
+
+The findings of this project do not support the initial expectation that legislative speech would become simpler over time. Instead, linguistic complexity remains relatively stable and even shows a slight increase in readability scores across the observed period. This suggests that the anticipated trend toward simplification in political communication does not extend straightforwardly to institutional legislative speech.
+
+One possible interpretation is that institutional constraints play a stronger role in shaping language use than broader media dynamics. Unlike campaign or social media communication, floor speeches are embedded in a formal setting with established norms, expectations, and purposes. These institutional factors may limit the extent to which members adapt their language toward simplification.
+
+At the same time, the observed decrease in speech length suggests a shift in how communication is structured rather than how complex it is. Members of Congress appear to be speaking more concisely, but not necessarily more simply. This distinction is important, as it indicates that efficiency in communication does not imply reduced complexity. Instead, shorter speeches may reflect time constraints, strategic messaging, or changes in legislative practice rather than a shift toward more accessible language.
+
+The strong relationship between sentence length and readability further reinforces the idea that structural features of language play a central role in shaping measured complexity. Because readability indices such as Flesch-Kincaid are highly sensitive to sentence length, relatively small changes in sentence structure can have a significant impact on measured complexity. This helps explain why readability remains stable even as overall speech length declines.
+
+More broadly, these findings suggest that legislative speech operates under a distinct communicative logic. While political communication in public-facing contexts may increasingly prioritize accessibility and simplification, institutional speech appears to maintain a relatively consistent level of linguistic complexity. This aligns with existing research emphasizing that members of Congress engage in strategic communication within institutional constraints rather than simply adapting to external audience demands (Mayhew 1974; Grimmer 2013).
 
 # Limitations
 
-## Data Limitations
+Several limitations should be considered. First, the measures used capture only certain dimensions of linguistic complexity and do not account for factors such as vocabulary richness or rhetorical structure. Second, variation in formatting across the Congressional Record may introduce measurement error despite cleaning procedures.
 
-## Measurement Limitations
+Third, the analysis focuses only on House floor speeches and does not include public-facing communication. While the original design aimed for comparison across contexts, data constraints required narrowing the scope to institutional speech.
 
-## Conceptual Limitations
-
-# Reproducibility
+Finally, the analysis is descriptive and does not control for factors such as topic variation or political context, which may influence linguistic patterns.
 
 # Conclusion
 
+Between 2010 and 2025, House floor speeches became shorter but not simpler. Readability remained stable or slightly increased, sentence structure changed little, and word count declined substantially. These patterns suggest that institutional political communication follows a different trajectory than public-facing communication, and that conciseness and complexity are distinct dimensions of language use.
+
+Methodologically, the project highlights both the potential and challenges of large-scale text analysis. While the GovInfo API provides access to a rich and consistent corpus, transforming raw data into usable form requires careful structuring and iterative debugging.
+
+Future research could extend this analysis by incorporating topic variation, partisan differences, or comparisons with public-facing communication, providing a more complete understanding of how political language evolves across contexts.
+
 # References
+
+Gentzkow, M., Shapiro, J. M., & Taddy, M. (2019). Measuring group differences in high-dimensional choices: Method and application to congressional speech. *Econometrica, 87*(4), 1307–1340.
+
+Grimmer, J. (2013). *Representational style in Congress: What legislators say and why it matters*. Cambridge University Press.
+
+Grimmer, J., & Stewart, B. M. (2013). Text as data: The promise and pitfalls of automatic content analysis methods for political texts. *Political Analysis, 21*(3), 267–297.
+
+Habermas, J. (1984). *The theory of communicative action, Volume 1: Reason and the rationalization of society*. Beacon Press.
+
+Kincaid, J. P., Fishburne, R. P., Rogers, R. L., & Chissman, B. S. (1975). Derivation of new readability formulas for Navy enlisted personnel. Naval Technical Training Command.
+
+Mayhew, D. R. (1974). *Congress: The electoral connection*. Yale University Press.
+
+McNair, B. (2017). *An introduction to political communication* (6th ed.). Routledge.
+
+Prior, M. (2007). *Post-broadcast democracy: How media choice increases inequality in political involvement and polarizes elections*. Cambridge University Press.
+
+Laver, M., Benoit, K., & Garry, J. (2003). Extracting policy positions from political texts using words as data. *American Political Science Review, 97*(2), 311–331.
