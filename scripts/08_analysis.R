@@ -8,7 +8,7 @@ dir.create(data_processed_path, recursive = TRUE, showWarnings = FALSE)
 dir.create(output_tables_path, recursive = TRUE, showWarnings = FALSE)
 
 analysis_data <- readr::read_csv(
-  file.path(interim_floor_speeches_path, "floor_speeches_analysis_ready.csv"),
+  file.path(data_processed_path, "floor_speeches_analysis_ready.csv"),
   show_col_types = FALSE
 )
  
