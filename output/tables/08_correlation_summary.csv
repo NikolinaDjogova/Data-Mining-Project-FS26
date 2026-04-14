@@ -1,0 +1,4 @@
+measure_pair,correlation
+fk_grade_and_avg_sentence_length,0.6109114453735123
+fk_grade_and_word_count,0.03742747968238395
+avg_sentence_length_and_word_count,0.0702724247368658

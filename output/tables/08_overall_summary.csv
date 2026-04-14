@@ -1,0 +1,11 @@
+metric,value
+total_speeches,127953
+mean_word_count,1189.5963127086848
+median_word_count,186
+sd_word_count,9534.348057202906
+mean_sentence_count,81.96707384742835
+median_sentence_count,14
+mean_avg_sentence_length,13.097217343568637
+median_avg_sentence_length,12.625
+mean_fk_grade,12.945232372485654
+median_fk_grade,12.046923076923083
