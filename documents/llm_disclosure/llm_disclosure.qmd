@@ -45,4 +45,6 @@ I am including the exact prompts I used while working on this project.
 27. I need to do the plots now. I want all of them to have a consistent theme, help me write the code for it.
 28. Why save plots like this? won't they save anyway?
 29. This is my regression model, i'm not sure what to do next with it like how to actually extract the coefficients
-30. 
+30. \*I sent it all my scripts one by one and asked: I'm ready to push this script, what are some edits I should make before finalizing it?
+31. I wrote the basic code for my scripts but I don't like how they look. Here's a color pallete i want to use, what are the \# codes??
+32. 

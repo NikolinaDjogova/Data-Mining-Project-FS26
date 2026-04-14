@@ -52,25 +52,25 @@ rsconnect/
 .DS_Store
 
 # Data 
+# Data
 data/raw/**
 data/interim/**
 data/processed/**
 
 !data/raw/.gitkeep
 !data/interim/.gitkeep
-!data/processed/.gitkeep 
+!data/processed/.gitkeep
+!data/processed/floor_speeches_with_measures.csv
 
-# Outputs 
+# outputs 
 output/**
-output/figures/**
-output/tables/**
-output/logs/**
-output/checks/**
 
 !output/figures/.gitkeep
 !output/tables/.gitkeep
 !output/logs/.gitkeep
-!output/checks/.gitkeep 
+!output/checks/.gitkeep
+!output/tables/
+!output/tables/*.csv
 
 # Ignoring files named .env (API keys, tokens, passwords)
 .env
