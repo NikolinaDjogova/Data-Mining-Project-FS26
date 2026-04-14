@@ -15,7 +15,7 @@ library(scales)
 
 # Loading datasets from the last script
 analysis_data <- readr::read_csv(
-  file.path(data_processes_path, "floor_speeches_with_measures.csv"),
+  file.path(data_processed_path, "floor_speeches_with_measures.csv"),
   show_col_types = FALSE
 )
 
@@ -60,8 +60,14 @@ analysis_data <- analysis_data |>
     year = as.numeric(year),
     fk_grade = as.numeric(fk_grade),
     avg_sentence_length = as.numeric(avg_sentence_length),
-    word_count = as.numeric(word_count)
-  )
+    word_count = as.numeric(word_count),
+    period = dplyr::case_when(
+      year >= 2010 & year <= 2014 ~ "2010-2014",
+      year >= 2015 & year <= 2019 ~ "2015-2019",
+      year >= 2020 & year <= 2025 ~ "2020-2025",
+      TRUE ~ NA_character_
+    ),
+    period = factor(period, levels = c("2010-2014", "2015-2019", "2020-2025"))
 
 ###Plots 
 # Creating my aesthetic theme for all plots 
