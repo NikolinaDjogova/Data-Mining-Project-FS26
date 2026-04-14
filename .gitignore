@@ -74,6 +74,12 @@ output/checks/**
 
 # Ignoring files named .env (API keys, tokens, passwords)
 .env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets.json
+config.local
 
 
 
