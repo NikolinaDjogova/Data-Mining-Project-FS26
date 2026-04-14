@@ -1,13 +1,13 @@
 ---
-title: "Linguistic Complexity in Legislative Speech: Analysis of U.S. House Floor debates, 2010-2025"
+title: "Linguistic Complexity in Legislative Speech: Analysis of U.S. House Floor Debates, 2010-2025"
 author: "Nikolina Djogova"
 format:
   pdf:
     toc: true
     number-sections: true
 editor: visual
-  markdown: 
-    wrap: 72
+markdown:
+  wrap: 72
 execute:
   echo: false
   warning: false

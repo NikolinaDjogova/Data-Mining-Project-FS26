@@ -63,7 +63,7 @@ scripts/ R scripts for data collection, cleaning, and analysis\
 data/raw/ raw downloaded data (not tracked by Git)\
 data/interim/ intermediate files (not tracked by Git) data/processed/
 processed datasets (not tracked by Git) output/ figures, tables, logs,
-and checks (not tracked by Git)\
+and checks \
 README.md project description
 
 ## Reproducibility
