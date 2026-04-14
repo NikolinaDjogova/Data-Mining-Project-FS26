@@ -60,10 +60,10 @@ chunk_size <- 100
 
 granule_chunks <- split(
   kept_granules,
-  ceiling(seq_len(nrow(kept_granules_recent)) / chunk_size)
+  ceiling(seq_len(nrow(kept_granules)) / chunk_size)
 )
 
-length(granule_chunks_recent)
+length(granule_chunks)
 
 # Chunked text collection
 message("Starting chunked text collection")
