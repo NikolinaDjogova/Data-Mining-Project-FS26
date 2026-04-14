@@ -1,0 +1,9 @@
+metric,value
+rows_in_final_combined,135969
+rows_in_cleaned_data,135969
+rows_in_analysis_data,127953
+missing_text_rows,56
+zero_word_rows,56
+short_text_rows,7960
+min_year,2010
+max_year,2025

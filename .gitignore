@@ -65,12 +65,20 @@ data/processed/**
 # outputs 
 output/**
 
-!output/figures/.gitkeep
-!output/tables/.gitkeep
-!output/logs/.gitkeep
-!output/checks/.gitkeep
+!output/checks/
+!output/checks/*.csv
+
+!output/figures/
+!output/figures/*.png
+!output/figures/*.pdf
+!output/figures/*.jpg
+!output/figures/*.jpeg
+
 !output/tables/
 !output/tables/*.csv
+
+!output/logs/
+!output/logs/.gitkeep
 
 # Ignoring files named .env (API keys, tokens, passwords)
 .env
