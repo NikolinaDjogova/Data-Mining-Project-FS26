@@ -1,9 +1,8 @@
 rm(list = ls())
 
 source(here::here("scripts", "00_setup.R"))
-source(here::here("scripts", "reusables.R"))
 
-# Making sure the interim folder exists
+# Making sure the required folder exists
 if (!dir.exists(interim_floor_speeches_path)) {
   stop("Interim floor speeches folder does not exist")
 }
@@ -56,6 +55,12 @@ readr::write_csv(
   file.path(interim_floor_speeches_path, "floor_speeches_FINAL.csv")
 )
 
+# Saving combined dataset in processed
+readr::write_csv(
+  floor_speeches,
+  file.path(data_processed_path, "floor_speeches_combined.csv")
+)
+
 # Creating checks table
 checks <- tibble::tibble(
   metric = c(
@@ -80,6 +85,14 @@ readr::write_csv(
   file.path(output_checks_path, "06_combine_floor_speeches_checks.csv")
 )
 
-# Quick yearly validation
-floor_speeches |>
+# Saving yearly validation counts
+year_counts <- floor_speeches |>
   dplyr::count(year)
+
+readr::write_csv(
+  year_counts,
+  file.path(output_checks_path, "06_year_counts.csv")
+)
+
+# Quick yearly validation
+year_counts
