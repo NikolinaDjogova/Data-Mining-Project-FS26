@@ -70,17 +70,14 @@ plot_speeches <- ggplot(speeches_per_year, aes(x = year, y = num_speeches)) +
   geom_area(fill = blue_mid, alpha = 0.55) +
   geom_line(color = blue_dark, linewidth = 1) +
   geom_point(color = blue_dark, size = 2) +
-  scale_x_continuous(
-    breaks = c(2010, 2015, 2020, 2025),
-    expand = expansion(mult = c(0.01, 0.03))
-  )+
+year_scale+
   scale_y_continuous(labels = scales::comma) +
   labs(
     title = "Number of House Floor Speeches per Year",
     subtitle = "Analysis-ready speeches, 2010–2025",
     x = "Year",
     y = "Number of speeches",
-    caption = "Source: U.S. Congressional Record via GovInfo API"
+    caption = "Source: U.S. Congressional Record"
   ) +
   project_theme()
 plot_speeches
@@ -94,10 +91,7 @@ plot_fk <- ggplot(fk_by_year, aes(x = year, y = avg_fk_grade)) +
   ) +
   geom_line(color = blue_dark, linewidth = 1.1) +
   geom_point(color = blue_dark, size = 2.2) +
-  scale_x_continuous(
-    breaks = c(2010, 2015, 2020, 2025),
-    expand = expansion(mult = c(0.01, 0.03))
-  ) +
+  year_scale +
   labs(
     title = "Average Flesch-Kincaid Grade Level by Year",
     subtitle = "Higher values indicate more structurally demanding texts",
@@ -117,9 +111,7 @@ plot_fk_distribution <- ggplot(distribution_by_year, aes(x = year)) +
   geom_line(aes(y = fk_p50), color = blue_dark, linewidth = 1.1) +
   geom_line(aes(y = fk_p90), color = blue_mid, linetype = "dashed", linewidth = 0.8) +
   geom_line(aes(y = fk_p10), color = blue_mid, linetype = "dashed", linewidth = 0.8) +
-  scale_x_continuous(
-    breaks = seq(min(distribution_by_year$year), max(distribution_by_year$year), by = 1)
-  ) +
+  year_scale+
   labs(
     title = "Distributional Change in Flesch-Kincaid Scores Over Time",
     subtitle = "Median and upper/lower quantiles show how readability shifted across the distribution",
@@ -131,21 +123,22 @@ plot_fk_distribution <- ggplot(distribution_by_year, aes(x = year)) +
 
 # Average sentence length over time 
 plot_sentence_length <- ggplot(sentence_complexity_by_year, aes(x = year, y = avg_sentence_length)) +
-  geom_ribbon(
-    aes(ymin = p25_sentence_length, ymax = p75_sentence_length),
-    alpha = 0.18
+  geom_segment(
+    aes(x = year, xend = year, y = 0, yend = avg_sentence_length),
+    color = blue_light,
+    linewidth = 1
   ) +
-  geom_line(linewidth = 1) +
-  geom_point(size = 2) +
-  scale_x_continuous(breaks = seq(min(sentence_complexity_by_year$year), max(sentence_complexity_by_year$year), by = 1)) +
+  geom_point(size = 1, color = blue_dark) +
+  year_scale +
   labs(
     title = "Average Sentence Length by Year",
-    subtitle = "Measured as average words per sentence in each year",
-    x = "Year",
+    subtitle = "Measured as average words per sentence",
+    x = NULL,
     y = "Average words per sentence",
-    caption = "Ribbon shows the 25th–75th percentile range"
+    caption = "Yearly averages from the analysis-ready corpus"
   ) +
   project_theme()
+
 plot_sentence_length
 
 # Average word count over time
