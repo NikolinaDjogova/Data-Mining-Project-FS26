@@ -1,16 +1,11 @@
 rm(list = ls())
 
 source(here::here("scripts", "00_setup.R"))
-source(here::here("scripts", "reusables.R"))
 
 dir.create(interim_floor_speeches_path, recursive = TRUE, showWarnings = FALSE)
 dir.create(output_checks_path, recursive = TRUE, showWarnings = FALSE)
-
-# Loading combined dataset 
-floor_speeches <- readr::read_csv(
-  file.path(interim_floor_speeches_path, "floor_speeches_FINAL.csv"),
-  show_col_types = FALSE
-)
+dir.create(data_processed_path, recursive = TRUE, showWarnings = FALSE)
+dir.create(output_tables_path, recursive = TRUE, showWarnings = FALSE)
 
 analysis_data <- readr::read_csv(
   file.path(interim_floor_speeches_path, "floor_speeches_analysis_ready.csv"),
@@ -21,12 +16,8 @@ analysis_data <- readr::read_csv(
 library(dplyr)
 library(stringr)
 library(lubridate)
-library(ggplot2)
-install.packages("quanteda")
 library(quanteda)
-install.packages("quanteda.textstats")
 library(quanteda.textstats)
-library(broom)
 
 # Basic type checks
 analysis_data <- analysis_data |>
@@ -71,7 +62,7 @@ analysis_data <- analysis_data |>
 # Saving dataset with measures 
 readr::write_csv(
   analysis_data,
-  file.path(interim_floor_speeches_path, "floor_speeches_with_measures.csv")
+  file.path(data_processed_path, "floor_speeches_with_measures.csv")
 )
 
 # Descriptive summary
@@ -172,6 +163,41 @@ readr::write_csv(
   file.path(output_tables_path, "08_yearly_summary.csv")
 )
 
+readr::write_csv(
+  overall_summary,
+  file.path(output_tables_path, "08_overall_summary.csv")
+)
+
+readr::write_csv(
+  speeches_per_year,
+  file.path(output_tables_path, "08_speeches_per_year.csv")
+)
+
+####Additional Analysis
+# Distributional change over time 
+distribution_by_year <- analysis_data |>
+  dplyr::group_by(year) |>
+  dplyr::summarise(
+    fk_p10 = quantile(fk_grade, 0.10, na.rm = TRUE),
+    fk_p25 = quantile(fk_grade, 0.25, na.rm = TRUE),
+    fk_p50 = quantile(fk_grade, 0.50, na.rm = TRUE),
+    fk_p75 = quantile(fk_grade, 0.75, na.rm = TRUE),
+    fk_p90 = quantile(fk_grade, 0.90, na.rm = TRUE),
+    
+    sentence_p10 = quantile(avg_sentence_length, 0.10, na.rm = TRUE),
+    sentence_p25 = quantile(avg_sentence_length, 0.25, na.rm = TRUE),
+    sentence_p50 = quantile(avg_sentence_length, 0.50, na.rm = TRUE),
+    sentence_p75 = quantile(avg_sentence_length, 0.75, na.rm = TRUE),
+    sentence_p90 = quantile(avg_sentence_length, 0.90, na.rm = TRUE),
+    
+    wordcount_p10 = quantile(word_count, 0.10, na.rm = TRUE),
+    wordcount_p25 = quantile(word_count, 0.25, na.rm = TRUE),
+    wordcount_p50 = quantile(word_count, 0.50, na.rm = TRUE),
+    wordcount_p75 = quantile(word_count, 0.75, na.rm = TRUE),
+    wordcount_p90 = quantile(word_count, 0.90, na.rm = TRUE),
+    .groups = "drop"
+  )
+
   # checks 
   checks <- tibble::tibble(
     metric = c(
@@ -203,6 +229,5 @@ readr::write_csv(
   print(fk_by_year)
   print(wordcount_by_year)
   
-  names(yearly_summary)
   
   
